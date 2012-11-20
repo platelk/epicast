@@ -1,0 +1,47 @@
+// Utils Function LESS
+
+.box_shadow (@param)
+{
+	-webkit-box-shadow : @param;
+	-moz-box-shadow : @param;
+	-ms-box-shadow : @param;
+	-o-box-shadow : @param;
+	box-shadow : @param;
+}
+
+.styles_box (@radius) {
+     -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+     -ms-border-radius: @radius;
+     -o-border-radius: @radius;
+     border-radius: @radius;
+}
+
+.transition (@trans) {
+	-webkit-transition-property: @trans;
+	-moz-transition-property: @trans;
+	-ms-transition-property: @trans;
+	-o-transition-property: @trans;
+	transition-property: @trans;
+}
+
+.transition-duration (@trans: 1s) {
+	-webkit-transition-duration: @trans;
+	-moz-transition-duration: @trans;
+	-ms-transition-duration: @trans;
+	-o-transition-duration: @trans;
+	transition-duration: @trans;
+}
+
+.transition-delay (@trans) {
+	-webkit-transition-delay : @trans;
+	-moz-transition-delay : @trans;
+	-ms-transition-delay: @trans;
+	-o-transition-delay: @trans;
+	transition-delay : @trans;
+}
+
+.noMarginAndPadding {
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}

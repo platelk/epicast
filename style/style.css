@@ -1,0 +1,216 @@
+/* import */
+
+/*@import url("utils_function.less");*/
+/* Variable */
+
+/*@import url("mosaique_style.css");
+@import url("tabs_style.css");*/
+
+/* Design Principale */
+
+body
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0%;
+	left: 0%;
+	background-color: #333333;
+	overflow: hidden;
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+
+header
+{
+	position : absolute;
+	background-color: #444343;
+
+	top : 0%;
+	left : 0%;
+	height: 4.5%;
+	width: 100%;
+	border : 3px #000000 solid;
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+
+header #logo
+{
+	position : absolute;
+
+	top : -100%;
+	left : 1%;
+	color : #aaaaaa;
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+
+header #epi, header #cast
+{
+	display : inline-block;
+}
+
+header #epi
+{
+	font-size: 90%;
+	color : #2099ff;
+}
+
+header #cast
+{
+	font-style: italic;
+	font-family: serif;
+	color : #ffffff;
+}
+
+header ul li
+{
+	list-style: none;
+}
+
+
+#connection [type="text"]
+{
+	display : inline-block;
+	-webkit-transition: all 0.3s; 
+	/*-moz-transition: all 0.3s;*/
+    -ms-transition: all 0.3s; 
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+	width : 25%;
+}
+
+#connection [type="password"]
+{
+	display : inline-block;
+	-webkit-transition: all 0.3s; 
+	/*-moz-transition: all 0.3s;*/
+    -ms-transition: all 0.3s; 
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+	width : 25%;
+}
+
+#connectionButton
+{
+	position : absolute;
+	display: inline-block;
+	cursor: pointer;
+	background-color: #04859D;
+	top : -25%;
+	right: 5%;
+	height : 20%;
+	width : 20%;
+}
+
+#connectionButton:hover
+{
+	display : none;
+}
+
+#connection
+{
+	display : none;
+	position : absolute;
+	top : 0%;
+	right : 5%;
+	width : 22%;
+	height : 98%;
+	background-color: #048590;
+}
+
+#sign
+{
+	position : absolute;
+
+	background-color: #04859D;
+	/*top : -27%;*/
+	left : 0%;
+	width : 30%;
+	height : 60%;
+
+	font-family: sans-serif;
+	font-weight: bold;
+	color : #eeeeee;
+	text-align: center;
+}
+
+#sign span
+{
+	position : absolute;
+
+	top : -20%;
+	left : 20%;
+}
+
+#pseudo
+{
+	position : absolute;
+	top : 15%;
+	left : 32%;
+	width : 40%;
+	height : 50%;
+}
+
+#password
+{
+	position : absolute;
+	top : 15%;
+	left : 60%;
+	width : 40%;
+	height : 50%;
+}
+
+#send
+{
+	position : absolute;
+
+	top : 5%;
+	right: 1%;
+	width : 12%;
+	height: 90%;
+	background-color: #666565;
+	border : 0px;
+}
+
+#send:hover
+{
+	background-color: #556565;
+}
+
+#video
+{
+	position : absolute;
+	height : 90%;
+	width: 90%;
+
+	top : 9%;
+	left : 5%;
+	/*float : left;*/
+}
+
+.miniature
+{
+	position : absolute;
+
+	top : 0%;
+	left : 0%;
+
+	z-index: 0;
+	width : 100%;
+	height : 100%;
+}
+
+#connectionLog
+{
+	position : absolute;
+
+	background-color: #048590;
+	top : 99%;
+	right : 5%;
+	width: 22%;
+	height : 100%;
+
+	z-index: 1;
+}

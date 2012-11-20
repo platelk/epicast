@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery UI Example Page</title>
+		<link type="text/css" href="jquery.custom.css" rel="stylesheet" />
+		<link type="text/css" href="tabs.css" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- Tabs -->
+		<h2 id="title" class="demoHeaders">Tabs</h2>
+		<div id="tabs">
+			<ul id="tabs_selected">
+				<li><a href="#tabs-1">1</a></li>
+				<li><a href="#tabs-2">2</a></li>
+				<li><a href="#tabs-3">3</a></li>
+				<li><a href="#tabs-4">+</a></li>
+			</ul>
+			<div id="tabs-1">Plop, le seigneur a dis un jour que je t'aime, tout les autres on repondu va te faire et file nous du vin. Le seigneur, apres ces insultes et demande hors du propos, ripostat: Quel impudance, vous n'etes que des fourmis vous ne m'eriter pas les vivres du seigneur</div>
+			<div id="tabs-2">kikou.</div>
+			<div id="tabs-3">Plop le bolosse</div>
+			<div id="tabs-4">Il y a plus de chose ici</div>
+		</div>
+		<div id="test">salut</div>
+	</body>
+	<script type="text/javascript" src="libs/js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="libs/js/jquery-ui-1.8.23.custom.min.js"></script>
+	
+	<script type="text/javascript">
+	$(function(){
+				// Tabs
+				var t = $('<ul />');
+				t.addClass('loool');
+				t.attr('data-type', 'happy');
+				t.append('happy est gentil');
+				$('#tabs').tabs();
+				$('#test').html(t);
+			});
+	</script>
+	<script type="text/javascript" src="folder.js"></script>
+	<script type="text/javascript">
+	
+	$('#happy1').click(function()
+	{
+
+	});
+	</script>
+</html>

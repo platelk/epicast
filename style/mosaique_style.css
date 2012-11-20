@@ -1,0 +1,111 @@
+.Mosaique
+{
+	position: absolute;
+	padding : 6px 6px 6px 6px;
+	margin : 2% 2% 2% 2%;
+	top : 5%;
+	height : 85%;
+	float: left;
+}
+
+.title
+{
+	position : absolute;
+	color : #999999;
+	top : -7%;
+	left : 10%;
+	text-align: right;
+	font-size: 400%;
+	z-index: 4;
+}
+
+.MosContainer
+{
+	position: absolute;
+	border-style: solid;
+	border-width: 2px;
+	display : inline-block;
+	float: left;
+	clear : none;
+	height : 20%;
+	z-index: 1;
+	background-color: #444343;
+	overflow : hidden;
+	-moz-transition: all 0.3s;
+    transition: all 0.3s;
+	margin : 0px 0px 0px 0px;
+	padding : 0px 0px 0px 0px;
+}
+
+.MosContainer:hover
+{
+	height : 22.5%;
+}
+
+.streamClass
+{
+	border-color: #228800;
+}
+
+.videoClass
+{
+	border-color: #002288;
+}
+
+.folderClass
+{
+	border-color: #882200;
+}
+
+.videoInfo
+{
+	position : absolute;
+	display : inline;
+
+	z-index: 20;
+	bottom : -100%;
+	left: 0%;
+	height : 40%;
+	width: 100%;
+	opacity: 0.8;
+	font-size: 100%;
+	color : #ffffff;
+	background-color: #111111;
+	-webkit-transition: all 0.3s; 
+	-moz-transition: all 0.3s;
+    -ms-transition: all 0.3s; 
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+	
+}
+
+.videoInfo p
+{
+	position : absolute;
+
+	top : -20%;
+	left : 1%;
+}
+
+.MosContainer:hover .videoInfo
+{
+	display : inline-block;
+}
+
+.grill
+{
+	position: absolute;
+
+	background-color: #292828;
+	z-index: 0;
+}
+
+.grill-can-drop
+{
+	background-color: #338833;
+}
+
+.grill-cant-drop
+{
+	background-color: #883333;
+}

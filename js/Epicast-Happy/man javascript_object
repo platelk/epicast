@@ -1,0 +1,110 @@
+creation d'un object :
+	var obj1 = new Object(); // A partir de l'objet Object 
+	var obj2 = {}; // Avec la notation JSON 
+
+Utilisation : 
+
+	var obj = new Object(); 
+	obj["attribut"] = "valeur1"; 
+	// similaire à obj.attribut = "valeur1"; 
+ 
+	obj["methode"] = function(parametre1, parametre2) { 
+	alert("parametres: " + parametre1 + ", " + parametre2); 
+	}; 
+	// similaire à obj.methode = ... 
+
+	// Affichage de la valeur de attribut de obj 
+	alert("Valeur de attribut: " + obj.attribut); 
+
+	// Exécution de la méthode methode de obj 
+	obj.methode("valeur1", "valeur2");
+
+
+ Structure simple object :
+
+
+ Structure Public :
+
+ function MaClasse(parametre1, parametre2)
+ { 
+ this.attribut1 = parametre1; 
+ this.attribut2 = parametre2; 
+
+ this.methode = function() 
+ { 
+ alert("Attributs: " + this.attribut1 + ", " + this.attribut2); 
+ } 
+ } 
+ 
+ var obj = new MaClasse("valeur1", "valeur2"); 
+ alert("Attribut1: " + obj.attribut1); // Affiche la valeur de l'attribut attribut1 
+ obj.methode(); // Affiche la chaîne de caractères contenant les valeurs des attributs
+
+ Structure Privee :
+
+ function MaClasse(parametre1, parametre2) { 
+    var attribut1 = parametre1; 
+    var attribut2 = parametre2; 
+     
+    var methode = function() { 
+        alert("Attributs: " + attribut1 + ", " + attribut2); 
+    } 
+} 
+ 
+var obj = new MaClasse("valeur1", "valeur2"); 
+alert("Attribut1: " + obj.attribut1); 
+// Affiche la valeur undefined (attribut1 ne peut être résolu) 
+ 
+try { 
+    obj.methode(); 
+} catch(err) { 
+    print(err); 
+}// Génère une erreur car la méthode ne peut pas être résolue à l'extérieur de la classe
+
+
+Prototypage : Permet de modifier une fonction (methode) apres l'avoir creé :
+
+function MaClasse(parametre1, parametre2) { 
+    this.attribut1 = parametre1; 
+    this.attribut2 = parametre2; 
+} 
+ 
+MaClasse.prototype = { 
+    methode: function() { 
+        alert("Attributs: " + this.attribut1 + ", " + this.attribut2); 
+    } 
+} 
+ 
+var obj = new MaClasse("valeur1", "valeur2"); 
+alert("Attribut1: " + obj.attribut1); // Affiche la valeur de l'attribut attribut1 
+obj.methode(); // Affiche la chaîne de caractères contenant les valeurs des attributs 
+
+	Heritage :
+
+function MaClasseMere(parametre1, parametre2) { 
+    this.attribut1 = parametre1; 
+    this.attribut2 = parametre2; 
+    } 
+ 
+MaClasseMere.prototype = { 
+    methode: function() { 
+        alert("[methode] Attributs: " + this.attribut1 + ", " + this.attribut2); 
+    } 
+} 
+ 
+function MaClasse(parametre1, parametre2, parametre3) { 
+    MaClasseMere.call(this, parametre1, parametre2); 
+    this.attribut3 = parametre3; 
+} 
+ 
+MaClasse.prototype = new MaClasseMere(); 
+MaClasse.prototype.uneMethode = function() { 
+    alert("[uneMethode] Attributs: " + this.attribut1 
+                   + ", " + this.attribut2 + ", " + this.attribut3); 
+} 
+ 
+var obj = new MaClasse("parametre1", "parametre2", "parametre3"); 
+obj.methode(); 
+// Affiche les valeurs des attributs attribut1 et attribut2 
+obj.uneMethode(); 
+// Affiche les valeurs des attributs attribut1, attribut2 et attribut3 

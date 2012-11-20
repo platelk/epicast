@@ -1,0 +1,83 @@
+body
+{
+	position: absolute;
+	top: 0%;
+	left : 0%;
+	height: 100%;
+	width: 100%;
+	background-color: #dddddd;
+}
+
+#tabs
+{
+	position: absolute;
+	height: 90%;
+	width: 90%;
+	background-color: #cccccc;
+	top: 10%;left: 5%;
+}
+
+#title
+{
+	color: #552266;
+	position: absolute;
+	left: 50%;
+	top: 0%;
+	background-color: #444444;
+	border-style: ridge;
+}
+
+#tabs_selected
+{
+	background-color: #ffbf50;
+	position: absolute;
+	left: 85%;
+	width: 10%;
+	top: 10%;
+	height:80%;
+	color: #992222;
+	border-radius: 20px;
+	padding: 0px 0px 0px 0px;
+}
+
+a, .ui-state-default
+{ 
+	list-style: none;
+	color: #c704f5; text-decoration: none;
+	font-size: 80px;
+	text-align: center;
+
+}
+
+.ui-state-default
+{
+	background-color: #c6c6c6;
+	border : 5px solid #fed22f;
+	border-radius: 15px;
+	height: 25%;
+	width: 90%;
+	margin: 0px 0px 0px 0px;
+}
+
+.ui-tabs-selected
+{
+	color: #ffffff;
+}
+
+.ui-state-hover
+{
+	background-color: #999966;
+}
+a, .ui-tabs-panel
+{
+	font-size: 50px;
+}
+
+.ui-tabs-panel
+{
+	position: absolute;
+	height: 100%;
+	width: 85%;
+	top: 0%;
+	background-color: #aa06aa
+}
