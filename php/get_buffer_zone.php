@@ -9,9 +9,9 @@ if (isset($a_id))
     $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
     $prepared = $db->prepare('CALL get_buffer_zone(:id)');
     $prepared->execute(array('id' => $a_id));
-    echo "{\nbuffer_zone:\n[\n";
+    echo "{\n\"buffer_zone\":\n[\n";
     while ($data = $prepared->fetch(PDO::FETCH_ASSOC))
-      echo json_encode($data);
+      echo json_encode($data) + ",";
     echo "\n]\n}";
     
   }

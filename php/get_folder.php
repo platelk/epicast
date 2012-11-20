@@ -8,9 +8,12 @@ if (isset($_POST['id']) && isset($_POST['id']))
     $prepared = $db->prepare('CALL get_folder_content(:id)');
     $prepared->execute(array('id' => $_POST['id']));
     $section = array("folders", "channels", "videos");
+    $j = 0;
     foreach($section as $i)
       {
-	echo $i . ":\n[\n";
+	if ($j != 0)
+	  echo ",";
+	echo "\"" . $i . "\":\n[\n";
 	$i = 0;
 	while($ligne = $prepared->fetch(PDO::FETCH_ASSOC))
 	  {
@@ -21,6 +24,7 @@ if (isset($_POST['id']) && isset($_POST['id']))
 	  }
 	$prepared->nextRowset();
 	echo "\n]\n";
+	$j++;
       }
     echo "}";
   }
