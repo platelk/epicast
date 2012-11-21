@@ -30,6 +30,7 @@ if (isset($a_id))
 	$j++;
       }
     echo "}";
+    $db = null;
   }
 else
-  echo "{ Error: Bad request }";
+  echo "{ \"Error\": \"Bad request\" }";

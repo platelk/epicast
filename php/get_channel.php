@@ -16,7 +16,8 @@ if (isset($_POST['id']) && isset($_POST['id']))
 	$m++;
       }
     echo "\n]\n}\n";
+    $db = null;
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>

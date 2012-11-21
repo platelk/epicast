@@ -8,20 +8,19 @@ if (isset($_POST['id']) && !empty($_POST['id']) &&
 	$_POST['type'] == "channels")
       {
 	echo "CONNECT...\n";
-	$db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 	echo "LET'S RECUSIVE...\n";
-	delete_folder($_POST['type'], $_POST['id'], $db);
+	delete_folder($_POST['type'], $_POST['id']);
       }
     else
-      echo "{Error: Bad request}";
+      echo "{\"Error\": \"Bad request\"}";
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 
 
-
-function delete_folder($type, $id, $db)
+function delete_folder($type, $id)
 {
+  $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
   echo "=====> TYPE: " . $type . " ID: " . $id . "\n";
   if ($type == "folders")
     {
@@ -31,23 +30,26 @@ function delete_folder($type, $id, $db)
       $section = array("folders", "channels", "videos");
       foreach($section as $i)
 	{
-	  $i = 0;
 	  while($line = $prepared->fetch(PDO::FETCH_ASSOC))
 	    {
-	      echo $id . " |" . $i . " |line: " . $line['id'] . " " . $line['name'] . "\n";
-	      delete_folder($i, $line['id'], $db);
-	      $i++;
+	      echo $id . " |" . $i . " |line: " . $line['id'] . " " . $line['name'] . $i . "\n";
+	      delete_folder($i, $line['id']);
 	    }
 	  $prepared->nextRowset();
 	}
-      $prepared = $db->prepare('CALL delete_folder(:id)');
-      $prepared->execute(array('id' => $id));
-    }
+      //      $prepared = $db->prepare('CALL delete_folder(:id)');
+      //$prepared->execute(array('id' => $id));
+   }
   else if ($type == "channels")
     {
       echo $id . " |DELETE: CHANNELS\n";
-      $prepared = $db->prepare('CALL delete_channel(:id)');
-      $prepared->execute(array('id' => $id));
+      //$prepared = $db->prepare('CALL delete_channel(:id)');
+      //$prepared->execute(array('id' => $id));
     }
+  else if ($type == "videos")
+    {
+      echo $id . " |DELETE: CHANNELS\n";
+    }
+  $db = null;
 }
 ?>

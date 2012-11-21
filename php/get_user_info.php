@@ -7,6 +7,7 @@ if (isset($user_id) && !empty($user_id))
     $prepared->execute(array('id' => $user_id));
     $data = $prepared->fetch(PDO::FETCH_ASSOC);
     echo json_encode($data, JSON_PRETTY_PRINT);
+    $db = null;
   }
 else
-  echo "{ Error: Bad request }";
+  echo "{ \"Error\": \"Bad request\" }";

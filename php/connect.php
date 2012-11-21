@@ -20,8 +20,9 @@ if (isset($_POST['username']) && isset($_POST['password']))
 	echo "\n}";
       }
     else
-      echo "{Error: Bad Password}";
+      echo "{\"Error\": \"Bad Password\"}";
+    $db = null;
   }
 else
-echo "{Error: Bad request}";
+echo "{\"Error\": \"Bad request\"}";
 ?>

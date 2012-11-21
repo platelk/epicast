@@ -15,7 +15,8 @@ if (isset($_POST['name']) && !empty($_POST['name']) &&
 			     'password' => $_POST['password']));
     $prepared->execute(array('username' => $_POST['username']));
     $info = $prepared->fetch();
+    $db = null;
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>
