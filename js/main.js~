@@ -62,17 +62,8 @@ $('#send').click(function () {
 });
 
 $(document).ready(function () {
-    var tchat = new Tchat();
-    var o = new One_tabs();
     resizeHeader();
     resizeInfoText();
-
-
-    /* Test tchat */
-    tchat.setPos("10%", "10%");
-    tchat.setSize("60%", "60%");
-
-    /* -------------------- */
 
     mosaique.push(new Mosaique(undefined, 15, 10));
     // mosaique.push(new Mosaique());
@@ -83,9 +74,6 @@ $(document).ready(function () {
     //tab.add_tabs(new One_tabs());
     tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
     tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletMoin('-', 'moins')));
-    o.onglet.icon = "tchat";
-    o.tab.add_content(tchat.getHtml());
-    tab.add_tabs(o);
     tab.displayAll();
     $('#tabs').tabs();
     CreateMosaique(mosaique[0], 30);

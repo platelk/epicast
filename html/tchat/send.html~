@@ -1,0 +1,3 @@
+<form method="" id="sendChamp" action="">
+  <p><label>Message</label> : <input type="text" name="" value="" /></p>
+</form>

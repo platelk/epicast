@@ -1,0 +1,8 @@
+/*
+** Css of tchat module
+*/
+
+.tchat
+{
+    position : absolute;
+}

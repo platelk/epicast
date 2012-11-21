@@ -1,0 +1,16 @@
+/*
+** Css of tchat module
+*/
+
+.tchat
+{
+    position : absolute;
+    background-color : #888888;
+}
+
+.sendMessage
+{
+    position : absolute;
+    bottom : 1%;
+    left : 2%;
+}
