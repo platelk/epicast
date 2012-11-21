@@ -316,13 +316,13 @@ function OngletMoin(icon, name, color)
 	this.html.children('a').off();
 	this.html.children('a').on({
 		click  : function () {
-			//var parent = $(this).data('parent').data('parent').data('parent').data('me');
+			var parent = $(this).data('parent').data('parent').data('parent').data('me');
 			if (this.active == -1){
 				//parent.tabs[parent.onglet_active].tab.html.show();
 				$('#tabs').css('left', -($('#tabs').width() - $('#tabs_selected').width()));
 				this.active = 0;
 			}
-			else {
+			else if (parent.tabs.length != 0){
 				/*for (i in parent.tabs) {
 					parent.tabs[i].tab.html.hide();
 				}*/
