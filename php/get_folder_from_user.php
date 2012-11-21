@@ -11,9 +11,12 @@ if (isset($a_id))
     $prepared = $db->prepare('CALL get_folder_from_user(:id)');
     $prepared->execute(array('id' => $a_id));
     $section = array("folders", "channels", "videos");
+    $j = 0;
     foreach($section as $i)
       {
-	echo $i . ":\n[\n";
+	if ($j != 0)
+	  echo ",";
+	echo "\"" . $i . "\":\n[\n";
 	$i = 0;
 	while($ligne = $prepared->fetch(PDO::FETCH_ASSOC))
 	  {
@@ -24,6 +27,7 @@ if (isset($a_id))
 	  }
 	$prepared->nextRowset();
 	echo "\n]\n";
+	$j++;
       }
     echo "}";
   }

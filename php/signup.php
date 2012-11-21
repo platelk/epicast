@@ -21,10 +21,10 @@ if (isset($_POST['username']) && !empty($_POST['username']) &&
 	$_SESSION['username'] = $info['username'];
 	$_SESSION['id'] = $info['id'];
 	$user_id = $info['id'];
-	echo "{\nuser:\n";
+	echo "{\n\"user\":\n";
 	require("get_user_info.php");
 	echo "\n";
-	echo "folder:\n";
+	echo ",\"folder\":\n";
 	require("get_folder_from_user.php");
 	echo "\n}";
       }
