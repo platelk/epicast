@@ -4,6 +4,7 @@
 
 $("#connectionLog").hide();
 mosaique = new Array();
+var connection = false;
 
 function resizeHeader() {
 	var h = $('header').height();
@@ -37,16 +38,22 @@ $(window).resize(function () {
 });
 
 $('#connectionButton').click(function () {
+    if (connection == false) {
 	$('#connectionButton').hide(200, function () {
-		$('#connection').show(200);
+	    connection = true;
+	    $('#connection').show(200);
 	});
+    }
 });
 
 $('header').mouseleave(function () {
+    if (connection == true) {
 	$('#connection').hide(200, function () {
-		$("#connectionLog").hide();
-		$('#connectionButton').show(200);
+	    connection = false;
+	    $("#connectionLog").hide();
+	    $('#connectionButton').show(200);
 	});
+    }
 });
 
 $('#send').click(function () {
