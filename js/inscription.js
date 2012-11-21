@@ -7,5 +7,5 @@ $("#inscriptionButton").click(function (e) {
 })
 
 function inscription() {
-    $("#inscriptionPage").load("inscription.html");
+    $("#inscriptionPage").load("html/inscription.html");
 }

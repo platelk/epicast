@@ -1,3 +1,3 @@
 <?php
-include "accueil.html"
+include "html/accueil.html"
 ?>
