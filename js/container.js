@@ -203,7 +203,7 @@ function setGrillEvent() {
     $(".grill").mouseleave(function () {
 	$(this).html('');
     });
-    $("#addContainer").load("addContainer.html", function () {
+    $("#addContainer").load("html/addContainer.html", function () {
 	    $("#addContainerMask").click(function () {
 		$("#addContainer").hide("clip", 200);
 	    });
