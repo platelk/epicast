@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 20, 2012 at 06:55 PM
+-- Generation Time: Nov 22, 2012 at 12:56 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -44,6 +44,20 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_folder`(IN `name` VARCHAR(255),
 BEGIN
 	INSERT INTO folders
         VALUES (NULL, name, description, owner);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_message`(IN `a_user_id` INT, IN `a_content` TEXT, IN `a_id_parent` INT, IN `a_id_video` INT)
+    NO SQL
+BEGIN
+	INSERT INTO message 
+        VALUES (NULL, 
+        	a_user_id, 
+                a_id_parent, 
+                a_content, 
+                CURRENT_TIMESTAMP);
+	INSERT INTO message_video
+        VALUES (LAST_INSERT_ID(),
+        	a_id_video);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tag`(
@@ -166,16 +180,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_folder`(IN `a_id` INT)
     NO SQL
 BEGIN
 	DELETE FROM folder_folder
-        WHERE folders_id = a_id;
+        WHERE subfolders_id = a_id;
         
-        DELETE FROM folder_video
-        WHERE folders_id = a_id;
-        
-        DELETE FROM folder_channel
+        DELETE FROM folder_folder
         WHERE folders_id = a_id;
         
         DELETE FROM folders
         WHERE id = a_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_message`(IN `a_id` INT)
+    NO SQL
+BEGIN
+	DELETE FROM message
+        WHERE id = a_id;
+        
+        DELETE FROM message_video
+        WHERE id_message = a_id;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_tag`(IN `a_id` INT)
@@ -296,6 +317,21 @@ BEGIN
         WHERE users.id = a_user_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_message`(IN `a_type` VARCHAR(255), IN `a_id` INT, IN `a_nbr` INT, IN `a_begin` INT)
+    NO SQL
+BEGIN
+	IF a_type = 'video' THEN
+                SELECT u.id, u.username, m.id, m.content, m.date, m.id_parent 
+                FROM message_video AS mv 
+                JOIN message AS m 
+                JOIN users AS u 
+                ON mv.id_message = m.id 
+                AND m.user_id = u.id 
+                WHERE mv.id_video = a_id 
+                LIMIT a_begin, a_nbr;
+	END IF;	
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_informations`(
         	IN a_user_id INT
         )
@@ -377,9 +413,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
 INSERT INTO `channels` (`id`, `name`, `description`, `image`, `owner`) VALUES
 (1, 'first chanel', 'du lol', 'jjjj', 15),
 (2, 'bite', 'bite', 'bite', 15),
-(4, 'bites', 'bite', 'bite', 15),
-(5, '3_1_test', 'pppppppppp', 'ppp', 15),
-(6, '3_2_test', 'ppppp', 'ppp', 15);
+(4, 'bites', 'bite', 'bite', 15);
 
 -- --------------------------------------------------------
 
@@ -403,9 +437,7 @@ CREATE TABLE IF NOT EXISTS `channel_video` (
 
 INSERT INTO `channel_video` (`videos_id`, `channels_id`, `date_begin`, `date_end`, `offset`) VALUES
 (1, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL),
-(2, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL),
-(6, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '00:00:00'),
-(6, 5, '0000-00-00 00:00:00', NULL, '00:00:00');
+(2, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -486,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `folders` (
   `description` text,
   `owner` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
 
 --
 -- Dumping data for table `folders`
@@ -501,10 +533,9 @@ INSERT INTO `folders` (`id`, `name`, `description`, `owner`) VALUES
 (25, '/', NULL, 0),
 (26, 'bite', 'bite', 0),
 (27, '/', NULL, 19),
-(29, '2_1_test', 'plplpl', 15),
-(30, '2_2_test', 'plplplpl', 15),
-(31, '3_1_test', 'ppppppp', 15),
-(32, '4_1_test', 'pp', 15);
+(34, '/', NULL, 20),
+(35, '/', NULL, 0),
+(36, '/', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -549,8 +580,7 @@ CREATE TABLE IF NOT EXISTS `folder_channel` (
 
 INSERT INTO `folder_channel` (`folders_id`, `channels_id`, `x`, `y`) VALUES
 (20, 1, 0, 0),
-(20, 4, 0, 0),
-(30, 6, 0, 0);
+(20, 4, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -572,8 +602,7 @@ CREATE TABLE IF NOT EXISTS `folder_folder` (
 --
 
 INSERT INTO `folder_folder` (`folders_id`, `subfolders_id`, `x`, `y`) VALUES
-(20, 21, 0, 0),
-(31, 32, 0, 0);
+(20, 21, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -681,6 +710,58 @@ CREATE TABLE IF NOT EXISTS `group_group_group_rights` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `message`
+--
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `id_parent` int(11) DEFAULT NULL,
+  `content` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `user_id`, `id_parent`, `content`, `date`) VALUES
+(1, 15, NULL, 'sssssssssssss', '2012-11-21 17:27:21'),
+(2, 15, NULL, 'ssssssssssssssssss', '2012-11-21 17:27:21'),
+(3, 16, NULL, 'ss', '2012-11-21 17:27:21'),
+(4, 15, 1, 'ddddddd', '2012-11-21 17:27:21'),
+(5, 15, 1, 'ddddddddddddddddddddddddddddddddddddddddd', '2012-11-21 17:27:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_video`
+--
+
+CREATE TABLE IF NOT EXISTS `message_video` (
+  `id_message` int(11) NOT NULL AUTO_INCREMENT,
+  `id_video` int(11) NOT NULL,
+  PRIMARY KEY (`id_message`),
+  KEY `id_message` (`id_message`),
+  KEY `id_video` (`id_video`),
+  KEY `id_video_2` (`id_video`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `message_video`
+--
+
+INSERT INTO `message_video` (`id_message`, `id_video`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tags`
 --
 
@@ -759,7 +840,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `Folders_id_UNIQUE` (`folders_id`),
   KEY `fk_Users_Folders_idx` (`folders_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `users`
@@ -770,7 +851,8 @@ INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `passwo
 (16, 'harold', '', '', 'harold.ozouf@gmail.com', '64a4e8faed1a1aa0bf8bf0fc84938d25', 22, 0),
 (17, 'vink', '', '', 'ff', 'f71dbe52628a3f83a77ab494817525c6', 23, 0),
 (18, 'jb', '', '', 'ldld', '64a4e8faed1a1aa0bf8bf0fc84938d25', 24, 0),
-(19, 'bite', 'plop', 'plop', 'plop', 'ed735d55415bee976b771989be8f7005', 27, 0);
+(19, 'bite', 'plop', 'plop', 'plop', 'ed735d55415bee976b771989be8f7005', 27, 0),
+(20, 'titi', '', '', 'toto', 'ed735d55415bee976b771989be8f7005', 34, 0);
 
 -- --------------------------------------------------------
 
