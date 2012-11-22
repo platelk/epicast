@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 22, 2012 at 12:56 PM
+-- Generation Time: Nov 23, 2012 at 01:43 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -317,6 +317,12 @@ BEGIN
         WHERE users.id = a_user_id;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_information_by_name`(IN `a_name` VARCHAR(255))
+    NO SQL
+BEGIN
+	SELECT* FROM users WHERE username = a_name;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_message`(IN `a_type` VARCHAR(255), IN `a_id` INT, IN `a_nbr` INT, IN `a_begin` INT)
     NO SQL
 BEGIN
@@ -362,6 +368,27 @@ BEGIN
         CLOSE curseur1;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `move`(IN `a_elm_type` VARCHAR(255), IN `a_x` INT, IN `a_y` INT, IN `a_elm_id` INT, IN `a_folder_id` INT)
+    NO SQL
+BEGIN
+        IF a_elm_type = "video" THEN
+        	UPDATE folder_video
+		SET x = a_x, y = a_y
+		WHERE videos_id = a_elm_id
+		AND folders_id = a_folder_id;
+        ELSEIF a_elm_type = "folder" THEN
+             	UPDATE folder_folder
+		SET x = a_x, y = a_y
+		WHERE subfolders_id = a_elm_id
+		AND folders_id = a_folder_id;
+        ELSEIF a_elm_type = "channel" THEN
+        	UPDATE folder_channel
+		SET x = a_x, y = a_y
+		WHERE channels_id = a_elm_id
+		AND folders_id = a_folder_id;
+        END IF;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `t_delete_content_channel`(IN `a_channel_id` INT)
 BEGIN
         DELETE FROM channel_video
@@ -404,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `channels` (
   `owner` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `channels`
@@ -518,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `folders` (
   `description` text,
   `owner` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `folders`
@@ -602,7 +629,7 @@ CREATE TABLE IF NOT EXISTS `folder_folder` (
 --
 
 INSERT INTO `folder_folder` (`folders_id`, `subfolders_id`, `x`, `y`) VALUES
-(20, 21, 0, 0);
+(20, 21, 5, 0);
 
 -- --------------------------------------------------------
 
