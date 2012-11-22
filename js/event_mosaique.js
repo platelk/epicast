@@ -79,8 +79,6 @@ function setEvent() {
     });
     $('.MosContainer').on({
 	click : function (event, ui) {
-	    if (tab.tabs.length > 0)
-		tab.removeTabs(0);
 	    var t = new One_tabs();
 	    var i = tab.add_tabs(t);
 	    t.onglet.icon = "Video";

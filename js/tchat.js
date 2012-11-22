@@ -18,6 +18,9 @@ function Tchat (usr, connect) {
     this.allMsg;
     this.connect;
     this.usr;
+    /* -------- TEST ---------*/
+    this.login = "platel_k";
+    /* -------- TEST -------- */
 
     /*
     **-----------------------------
@@ -31,6 +34,7 @@ function Tchat (usr, connect) {
     Tchat.prototype.addMsg = tchat_addMsg;
     Tchat.prototype.setPos = tchat_setPosition;
     Tchat.prototype.setSize = tchat_setSize;
+    Tchat.prototype.displayMsg = tchat_displayMsg;
 
     /*
     **-----------------------------
@@ -76,10 +80,18 @@ function tchat_init(usr, connect) {
     this.htmlReceiveMessage.addClass(this.classReceiveMessage);
     this.htmlSendMessage.addClass(this.classSendMessage);
 
+    this.htmlSendMessage.data("parent", this);
+
     this.htmlBox.append(this.htmlReceiveMessage);
     this.htmlBox.append(this.htmlSendMessage);
-    this.htmlSendMessage.load("html/tchat/send.html");
+    this.htmlSendMessage.load("html/tchat/send.html", function () {
+	$(".sendMessage .submit").click(function () {
+	    var tchat = $(".sendMessage .msgInput").parent().parent().parent().data("parent");
+	    var msg = $(".sendMessage .msgInput").val();
 
+	    tchat.addMsg(msg, tchat.login)
+	});
+    });
     // Return
     return (true);
 }
@@ -89,15 +101,30 @@ function tchat_getHtml() {
     return (this.htmlBox);
 }
 
-function tchat_addMsg(msg) {
+function tchat_addMsg(msg, login) {
     if (typeof msg == "undefind") {
 	// Return
 	return (false);
     }
-    this.allMsg.push(msg);
+    var mess = new Message(login, msg);
+    this.allMsg.push(mess);
 
+    this.displayMsg(10);
     // Return
     return (true);
+}
+
+function tchat_displayMsg(nb) {
+    this.htmlReceiveMessage.html('');
+    i = this.allMsg.length - 1 - nb;
+    if (i < 0) {
+	i = 0;
+    }
+    j = 0;
+    for (; i >= 0 && j < nb && i < this.allMsg.length ; i++) {
+	this.htmlReceiveMessage.append(this.allMsg[i].getMsg());
+	j++;
+    }
 }
 
 function tchat_setPosition(x, y) {
@@ -115,3 +142,9 @@ function tchat_sendMsg() {
 
 function tchat_recvMsg() {
 }
+
+
+/*
+** -------------------------
+** Event linked to tchat module
+*/

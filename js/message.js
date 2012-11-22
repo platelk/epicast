@@ -3,6 +3,10 @@
 ** Made by platel_k
 */
 
+function message_getMsg() {
+    return (this.htmlWrapper);
+}
+
 function Message(usr, msg) {
     /*
     **-----------------------------
@@ -19,8 +23,8 @@ function Message(usr, msg) {
     ** Methode of Message Class
     */
 
-    Message.prototype.init = message_init(usr, msg);
-    Message.prototype.getMsg = message_getMsg();
+    Message.prototype.init = message_init;
+    Message.prototype.getMsg = message_getMsg;
 
     /*
     **-----------------------------
@@ -28,7 +32,6 @@ function Message(usr, msg) {
     */
 
     this.init(usr, msg);
-
 }
 
 
@@ -48,9 +51,6 @@ function message_init(usr, msg) {
     this.classWrapper = "message";
 
     this.htmlWrapper = $("<div />");
+    this.htmlWrapper.append("" + usr + " : " + msg + "");
     return (true);
-}
-
-function message_getMsg() {
-    return (this.htmlWrapper);
 }
