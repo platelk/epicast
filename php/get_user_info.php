@@ -6,7 +6,8 @@ if (isset($user_id) && !empty($user_id))
     $prepared = $db->prepare('CALL get_user_informations(:id)');
     $prepared->execute(array('id' => $user_id));
     $data = $prepared->fetch(PDO::FETCH_ASSOC);
-    echo json_encode($data, JSON_PRETTY_PRINT);
+    echo json_encode($data);
+    $db = null;
   }
 else
-  echo "{ Error: Bad request }";
+  echo "{ \"Error\": \"Bad request\" }";

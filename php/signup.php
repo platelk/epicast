@@ -27,10 +27,11 @@ if (isset($_POST['username']) && !empty($_POST['username']) &&
 	echo ",\"folder\":\n";
 	require("get_folder_from_user.php");
 	echo "\n}";
+	$db = null;
       }
     else
-      echo "{Error: Bad password}";
+      echo "{\"Error\": \"Bad password\"}";
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>

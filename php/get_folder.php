@@ -27,7 +27,8 @@ if (isset($_POST['id']) && isset($_POST['id']))
 	$j++;
       }
     echo "}";
+    $db = null;
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>
