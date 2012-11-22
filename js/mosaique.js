@@ -318,14 +318,18 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 // Test ////////
 ////////////////
 
-function CreateMosaique(mosa, nb) {
+function CreateMosaique(mosa, data) {
     mosa.init();
+    var c;
 
-    while (nb > 0) {
-	var video = new Video();
-	mosa.addContainer(video);
-	nb--;
+    video  = data.folder.videos;
+    for (i in video) {
+	alert(video[i]);
+	c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image);
+	mosa.addContainer(c);
     }
+    setEvent();
+    $(window).trigger('resize');
 }
 
 function placeMosaique(mosa) {

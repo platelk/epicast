@@ -223,9 +223,16 @@ header ul li
 
 	background-color: #048590;
 	top : 99%;
-	right : 5%;
+	right : 25%;
 	width: 22%;
 	height : 100%;
 
 	z-index: 1;
+}
+
+#userInfo
+{
+    position : absolute;
+    right : 15%;
+    top : 5%;
 }

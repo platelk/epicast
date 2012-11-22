@@ -5,6 +5,7 @@
 $("#connectionLog").hide();
 mosaique = new Array();
 var connection = false;
+var user = new User();
 
 function resizeHeader() {
 	var h = $('header').height();
@@ -57,8 +58,29 @@ $('header').mouseleave(function () {
 });
 
 $('#send').click(function () {
-	var pseudo = $("#pseudo").val();
-	var password = $("#password").val();
+    var ret = user.connect($("#pseudo").val(), $("#password").val());
+    if (ret) {
+	$("#connectionLog").css("background-color", "#048590");
+	$("#connectionLog").show(50);
+	$("#connectionLog").html("Connection Success");
+    } else {
+	$("#connectionLog").css("background-color", "#a55134");
+	$("#connectionLog").show(50);
+	$("#connectionLog").html("Connection Error");
+    }
+    setTimeout(function () {
+	$("#connectionLog").hide(250);
+	if (user.online) {
+	    $("#connectionButton").hide(250);
+	    // $("#connectionButton").off();
+	    $("#connection").hide(250);
+	    // $("#connection").off();
+	    $("#inscriptionButton").hide(250);
+	    $("#userInfo").html(user.firstname + " " + user.lastname);
+	    alert(user.data.folder.videos);
+	    CreateMosaique(mosaique[0], user.data);
+	}
+    }, 2300);
 });
 
 $(document).ready(function () {
@@ -66,7 +88,6 @@ $(document).ready(function () {
     var o = new One_tabs();
     resizeHeader();
     resizeInfoText();
-
 
     /* Test tchat */
     tchat.setPos("10%", "10%");
@@ -88,7 +109,6 @@ $(document).ready(function () {
     tab.add_tabs(o);
     tab.displayAll();
     $('#tabs').tabs();
-    CreateMosaique(mosaique[0], 30);
     //CreateMosaique(mosaique[1], 12);
     placeMosaique(mosaique);
     setEvent();
