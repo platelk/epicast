@@ -31,6 +31,7 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 	if (container instanceof Container || container instanceof Stream || container instanceof Video || container instanceof Folder) {
 	    this.container.push(container);
 	    this.html.append(container.html);
+	    container.html.hide(0);
 	    container.html.data('id', this.container.length - 1);
 	    container.html.data('parent', this);
 	    container.setSize();
@@ -236,7 +237,7 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 	    /*if (!(this.checkPlace(this.container[id].important, this.container[id].html.data('x'), this.container[id].html.data('y'), id))) {
 
 	      } else {*/
-	    this.container[id].html.show();
+	    this.container[id].html.fadeIn(5 * (id + 1));
 	    if (!this.findPlace(id, this.container[id].html.data('x'), this.container[id].html.data('y'))) {
 		if (!this.findPlace(id, 0, 0)) {
 		    this.container[id].html.hide();
@@ -319,9 +320,12 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 
 function CreateMosaique(mosa, nb) {
     mosa.init();
-    var video = new Video();
 
-    mosa.addContainer(video);
+    while (nb > 0) {
+	var video = new Video();
+	mosa.addContainer(video);
+	nb--;
+    }
 }
 
 function placeMosaique(mosa) {

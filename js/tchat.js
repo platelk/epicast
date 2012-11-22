@@ -3,7 +3,7 @@
 ** made by platel_k
 */
 
-function Tchat (usr, connect) {
+function Tchat(usr, connect) {
     /*
     **-----------------------------
     ** Attribut of Tchat Class

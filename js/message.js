@@ -51,6 +51,6 @@ function message_init(usr, msg) {
     this.classWrapper = "message";
 
     this.htmlWrapper = $("<div />");
-    this.htmlWrapper.append("" + usr + " : " + msg + "");
+    this.htmlWrapper.append("<span class='usrMsg'>" + usr + "</span> : " + msg + "");
     return (true);
 }
