@@ -281,7 +281,7 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 	this.containerPosition();
 	this.mosaiquePosition();
 	this.draggableCursor();
-	this.displayName('Group');
+//	this.displayName('Group');
     }
 
     Mosaique.prototype.resetContent = function () {
@@ -304,7 +304,7 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 	    $(this).data('me').takePosition();
 	    $(this).data('me').mosaiquePosition();
 	    $(this).data('me').draggableCursor();
-	    $(this).data('me').displayName('Group');
+//	    $(this).data('me').displayName('Group');
 	}
     });
 

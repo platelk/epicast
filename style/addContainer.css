@@ -22,6 +22,15 @@
     z-index : 42;
 }
 
+#addContainerInput
+{
+    position : absolute;
+    top : 5%;
+    left : 15%;
+    width : 90%;
+    height : 90%;
+}
+
 #addContainerForm
 {
     position : absolute;
@@ -35,18 +44,17 @@
     background-color : #04859D;
 }
 
-#addContainerInput
-{
-    position : absolute;
-    top : 5%;
-    left : 10%;
-}
-
 #addContainerInput input
 {
     display : inline;
+    height : 33px;
+}
 
-    height : 40px;
+#addContainerSubmit
+{
+    position : absolute;
+    left : 5%;
+    bottom : 10%;
 }
 
 #addContainerLabel

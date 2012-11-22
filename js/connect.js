@@ -56,6 +56,7 @@ function Connect()
 		    $(document).data("json", null);
 		    return (false);
 		} else {
+		    alert(data);
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
 		}
@@ -205,7 +206,7 @@ function Connect()
 	$.ajax({
 	    url : "php/get_user_info.php",
 	    async : false
-	})
+	});
     }
 
     Connect.prototype.get_video = function (id) {

@@ -2,7 +2,7 @@
 session_start();
 header("Content-Type: application/json");
 if(isset($_SESSION['id']) &&
-   isset($_FILES['video']) && 
+   isset($_FILES['video']) &&
    isset($_POST['name']) && !empty($_POST['name']) &&
    isset($_POST['description']) && !empty($_POST['description']) &&
    isset($_POST['image']) && !empty($_POST['image']) &&

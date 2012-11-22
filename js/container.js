@@ -221,5 +221,10 @@ function setGrillEvent() {
 	$("#addContainerMask").click(function () {
 	    $("#addContainer").hide("clip", 200);
 	});
+	$("#addContainerSubmit").click(function () {
+	    alert("Start wait...")
+	    var ret = user.addVideo($("addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerFil").val());
+	    alert(ret);
+	});
     });
 }
