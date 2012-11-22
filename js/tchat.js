@@ -88,7 +88,7 @@ function tchat_init(usr, connect) {
 	$(".sendMessage .submit").click(function () {
 	    var tchat = $(".sendMessage .msgInput").parent().parent().parent().data("parent");
 	    var msg = $(".sendMessage .msgInput").val();
-
+	    $(".sendMessage .msgInput").val('');
 	    tchat.addMsg(msg, tchat.login)
 	});
     });
