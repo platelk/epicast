@@ -25,13 +25,14 @@ if(isset($_SESSION['id']) &&
 				     'live' => $_POST['live'],
 				     'user_id' => $_SESSION['id']));
 	    $user_id = $_SESSION['id'];
+	    $db = null;
 	    require("get_buffer_zone.php");
 	  }
 	else
-	  echo "{Error: Upload fail)";
+	  echo "{\"Error\": \"Upload fail\")";
       }
-    else "{Error: Bad file type}";
+    else "{\"Error\": \"Bad file type\"}";
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>

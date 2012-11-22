@@ -10,10 +10,16 @@ if (isset($a_id))
     $prepared = $db->prepare('CALL get_buffer_zone(:id)');
     $prepared->execute(array('id' => $a_id));
     echo "{\n\"buffer_zone\":\n[\n";
+    $n = 0;
     while ($data = $prepared->fetch(PDO::FETCH_ASSOC))
-      echo json_encode($data) + ",";
+      {
+	if ($n != 0)
+	  echo ",";
+	echo json_encode($data);
+	$n++;
+      }
     echo "\n]\n}";
-    
+    $db = null;
   }
 else
-  echo "{ Error: Bad request }";
+  echo "{\"Error\": \"Bad request\" }";

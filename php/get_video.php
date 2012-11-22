@@ -8,7 +8,8 @@ if (isset($_POST['id']) && !empty($_POST['id']))
     $prepared->execute(array('id' => $_POST['id']));
     $data = $prepared->fetch(PDO::FETCH_ASSOC);
     echo json_encode($data);
+    $db = null;
   }
 else
-  echo "{Error: Bad request}";
+  echo "{\"Error\": \"Bad request\"}";
 ?>
