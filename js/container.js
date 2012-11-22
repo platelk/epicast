@@ -158,13 +158,13 @@ function Folder(link) {
 	this.link = link;
 
 // HeritageVideo
-	Container.call(this); // Cf Héritage par le constructeur de la classe mère
+	Container.call(this); // Cf Heritage par le constructeur de la classe mere
 	if ( typeof Folder.initialized == 'undefined' ) {
-		// Recopie des éléments au moyen d'une simple boucle
+		// Recopie des elements au moyen d'une simple boucle
 		for (var element in Container.prototype ) {
 			Folder.prototype[element] = Container.prototype[element];
 		}
-		// Ajout d'une nouvelle méthode
+		// Ajout d'une nouvelle mthode
 			// code
 	}
 	Folder.initialized = true;
@@ -182,3 +182,30 @@ function Folder(link) {
 	this.init();
 }
 
+/* -------------------------------------
+** Evenement lier au container
+*/
+
+function setGrillEvent() {
+    $(".grill").hover(function () {
+	var x = $(this).data('x');
+	var y = $(this).data('y');
+
+	var ret = $(this).data("parent").checkPlace(1, x, y);
+	if (ret == true) {
+	    $(this).html('<img src="img/add.png" class="imgAdd" />');
+	    $(".imgAdd").click(function () {
+		$("#addContainer").show("clip", 200);
+	    });
+	}
+    });
+
+    $(".grill").mouseleave(function () {
+	$(this).html('');
+    });
+    $("#addContainer").load("addContainer.html", function () {
+	    $("#addContainerMask").click(function () {
+		$("#addContainer").hide("clip", 200);
+	    });
+    });
+}

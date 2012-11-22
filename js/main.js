@@ -4,12 +4,15 @@
 
 $("#connectionLog").hide();
 mosaique = new Array();
+var connection = false;
 
 function resizeHeader() {
 	var h = $('header').height();
+	var w = $('header').width()
 
 	$('#logo').css('font-size', 0.9 * parseInt(h));
 	$('#connectionButton').css('font-size', 0.6 * parseInt(h));
+	$('#inscriptionButton').css('font-size', 0.6 * parseInt(h));
 	$('.Mosaique').css('font-size', 0.5 * parseInt(h));
 }
 
@@ -35,16 +38,22 @@ $(window).resize(function () {
 });
 
 $('#connectionButton').click(function () {
+    if (connection == false) {
 	$('#connectionButton').hide(200, function () {
-		$('#connection').show(200);
+	    connection = true;
+	    $('#connection').show(200);
 	});
+    }
 });
 
 $('header').mouseleave(function () {
+    if (connection == true) {
 	$('#connection').hide(200, function () {
-		$("#connectionLog").hide();
-		$('#connectionButton').show(200);
+	    connection = false;
+	    $("#connectionLog").hide();
+	    $('#connectionButton').show(200);
 	});
+    }
 });
 
 $('#send').click(function () {
@@ -53,23 +62,24 @@ $('#send').click(function () {
 });
 
 $(document).ready(function () {
-	resizeHeader();
-	resizeInfoText();
+    resizeHeader();
+    resizeInfoText();
 
-	mosaique.push(new Mosaique(undefined, 15, 10));
-	// mosaique.push(new Mosaique());
-	tab = new Tabs(2, 50);
+    mosaique.push(new Mosaique(undefined, 15, 10));
+    // mosaique.push(new Mosaique());
+    tab = new Tabs(2, 50);
 
-	$('#video').append(mosaique[0].html);
-	//$('#video').append(mosaique[1].html);
-	//tab.add_tabs(new One_tabs());
-	tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
-	tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletMoin('-', 'moins')));
-	tab.displayAll();
-	$('#tabs').tabs();
-	CreateMosaique(mosaique[0], 30);
-	//CreateMosaique(mosaique[1], 12);
-	placeMosaique(mosaique);
-	setEvent();
-	$(window).trigger('resize');
+    $('#video').append(mosaique[0].html);
+    //$('#video').append(mosaique[1].html);
+    //tab.add_tabs(new One_tabs());
+    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
+    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletMoin('-', 'moins')));
+    tab.displayAll();
+    $('#tabs').tabs();
+    CreateMosaique(mosaique[0], 30);
+    //CreateMosaique(mosaique[1], 12);
+    placeMosaique(mosaique);
+    setEvent();
+    $(window).trigger('resize');
+    inscription();
 });
