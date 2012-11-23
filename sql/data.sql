@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 23, 2012 at 01:43 AM
+-- Generation Time: Nov 23, 2012 at 01:07 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -137,6 +137,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `create_group_rights`(IN `name` VARC
 BEGIN
 	INSERT INTO groups_rights
         VALUES (NULL, name, delete_group, rename_group, edit_group_desciption, change_rights, watch_stats);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_message_channel`(IN `a_name` VARCHAR(255), IN `a_description` TEXT)
+    NO SQL
+BEGIN
+	INSERT INTO message_channel
+        VALUES(NULL, a_name, a_description);
+        SELECT LAST_INSERT_ID() AS id_message_channel;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_channel`(IN `a_id` INT)
@@ -389,6 +397,27 @@ BEGIN
         END IF;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `move_from_buffer_to_channel`(IN `a_video_id` INT, IN `a_container_id` INT, IN `a_date_begin` TIMESTAMP, IN `a_date_end` TIMESTAMP, IN `a_offset` TIME)
+    NO SQL
+BEGIN	
+       	INSERT INTO channel_video
+        VALUES(a_video_id,
+       	       a_container_id,
+               date_begin,
+               date_end, 
+               offset);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `move_from_buffer_to_folder`(IN `a_video_id` VARCHAR(255), IN `a_container_id` INT)
+    NO SQL
+BEGIN	
+       	INSERT INTO folder_video
+        VALUES(a_video_id,
+       	       a_container_id,
+               1,
+               0, 0);
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `t_delete_content_channel`(IN `a_channel_id` INT)
 BEGIN
         DELETE FROM channel_video
@@ -464,7 +493,8 @@ CREATE TABLE IF NOT EXISTS `channel_video` (
 
 INSERT INTO `channel_video` (`videos_id`, `channels_id`, `date_begin`, `date_end`, `offset`) VALUES
 (1, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL),
-(2, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL);
+(2, 1, '2012-09-14 08:34:36', '2012-09-14 08:34:36', NULL),
+(1, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -655,7 +685,8 @@ INSERT INTO `folder_video` (`videos_id`, `folders_id`, `weight`, `x`, `y`) VALUE
 (2, 21, 1, 0, 0),
 (1, 21, 1, 0, 0),
 (1, 20, 1, 0, 0),
-(2, 20, 1, 0, 0);
+(2, 20, 1, 0, 0),
+(1, 20, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -746,45 +777,35 @@ CREATE TABLE IF NOT EXISTS `message` (
   `id_parent` int(11) DEFAULT NULL,
   `content` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_message_channel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`id`, `user_id`, `id_parent`, `content`, `date`) VALUES
-(1, 15, NULL, 'sssssssssssss', '2012-11-21 17:27:21'),
-(2, 15, NULL, 'ssssssssssssssssss', '2012-11-21 17:27:21'),
-(3, 16, NULL, 'ss', '2012-11-21 17:27:21'),
-(4, 15, 1, 'ddddddd', '2012-11-21 17:27:21'),
-(5, 15, 1, 'ddddddddddddddddddddddddddddddddddddddddd', '2012-11-21 17:27:21');
+INSERT INTO `message` (`id`, `user_id`, `id_parent`, `content`, `date`, `id_message_channel`) VALUES
+(1, 15, NULL, 'sssssssssssss', '2012-11-21 17:27:21', 0),
+(2, 15, NULL, 'ssssssssssssssssss', '2012-11-21 17:27:21', 0),
+(3, 16, NULL, 'ss', '2012-11-21 17:27:21', 0),
+(4, 15, 1, 'ddddddd', '2012-11-21 17:27:21', 0),
+(5, 15, 1, 'ddddddddddddddddddddddddddddddddddddddddd', '2012-11-21 17:27:21', 0),
+(6, 15, 0, 'plopkdkdkd', '2012-11-23 01:08:46', 0),
+(7, 15, 0, 'plopkdkdkd', '2012-11-23 01:09:35', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message_video`
+-- Table structure for table `message_channel`
 --
 
-CREATE TABLE IF NOT EXISTS `message_video` (
-  `id_message` int(11) NOT NULL AUTO_INCREMENT,
-  `id_video` int(11) NOT NULL,
-  PRIMARY KEY (`id_message`),
-  KEY `id_message` (`id_message`),
-  KEY `id_video` (`id_video`),
-  KEY `id_video_2` (`id_video`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `message_video`
---
-
-INSERT INTO `message_video` (`id_message`, `id_video`) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 1),
-(5, 1);
+CREATE TABLE IF NOT EXISTS `message_channel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` int(11) NOT NULL,
+  `comment` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -940,7 +961,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `videos`
@@ -951,7 +972,10 @@ INSERT INTO `videos` (`id`, `name`, `description`, `image`, `video`, `live`, `us
 (2, 'toto', 'titi', 'toto.jpg', 'titi.avi', 0, 15),
 (3, 'ppp', 'ppp', 'ppp', '1352974533.15', 0, 15),
 (5, 'plop', 'll', 'lllll', '1352979420.15', 0, 15),
-(6, 'test_v', 'kkk', 'k', 'kk', 0, 15);
+(6, 'test_v', 'kkk', 'k', 'kk', 0, 15),
+(8, 'tototototo', 'oooo', 'oooo', 'kfkfkfkfkfkfkfk', 0, 15),
+(10, 'tototototocool', 'oooo', 'oooo', 'kfkfkfkfkfkfkfk', 0, 15),
+(11, 'tototototocoollool', 'oooo', 'oooo', 'kfkfkfkfkfkfkfk', 0, 15);
 
 --
 -- Constraints for dumped tables
