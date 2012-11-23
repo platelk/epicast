@@ -227,9 +227,11 @@ function setGrillEvent() {
 	    var ret = conn.add_video($("#addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
 	    if (ret != false) {
 		$("#addContainer").hide("clip", 200);
+		alert("id of tab :" + (ret.buffer_zone.length - 1) + " video_id : " + ret.buffer_zone[ret.buffer_zone.length - 1].id + " folder_id : " + user.folders_id);
 		ret = conn.addVideoIn("folder", ret.buffer_zone[(ret.buffer_zone.length - 1)].id + "", user.folders_id + "");
-		$("#homeButton").trigger('click');
+		alert(" --> ret");
 	    }
+	    alert("end");
 	});
     });
 }
