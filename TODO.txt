@@ -1,1 +1,6 @@
-- Test trello
+- Importance sur les videos
+- Pages d'accueil
+- Voir comment generer plusieur stream
+- comment gerer les videos en local sur le serveur : <video></video> ?
+- Revoir l'ajout de video
+- Problemes avec la recup de message

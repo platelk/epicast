@@ -127,16 +127,13 @@ function Video(id, name, description, link, x, y, image) {
     this.link = link;
     this.name = name;
     this.info = description;
-    this.miniatureLink = link;
+    this.image = image;
 
     // Heritage
-    Container.call(this); // Cf Héritage par le constructeur de la classe mère
-    if ( typeof Video.initialized == 'undefined' ) {
-	// Recopie des éléments au moyen d'une simple boucle
+    Container.call(this);     if ( typeof Video.initialized == 'undefined' ) {
 	for (var element in Container.prototype ) {
 	    Video.prototype[element] = Container.prototype[element];
 	}
-	// Ajout d'une nouvelle méthode
 	// code
     }
     Video.initialized = true;
@@ -146,6 +143,8 @@ function Video(id, name, description, link, x, y, image) {
 
     Video.prototype.displayContent = function () {
 	content = $('<div />');
+	content.addClass("video");
+	content.append('<iframe width="560" height="315" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
 	return (content);
     }
 
@@ -154,9 +153,9 @@ function Video(id, name, description, link, x, y, image) {
 	this.html.addClass(this.streamClass);
 	this.html.data('link', this.link);
 	this.html.data('name', this.name);
-	this.html.data('miniatureLink', this.miniatureLink);
+	this.html.data('miniatureLink', this.image);
 	this.setInfoContent(this.infoContent);
-	this.html.append('<img class="miniature" src="http://img.youtube.com/vi/' + this.link + '/0.jpg" />');
+	this.html.append('<img class="miniature" src="' + this.image + '" />');
     }
 
     /* ----- */
