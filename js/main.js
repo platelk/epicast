@@ -76,7 +76,7 @@ $('#SearchBarButton').click(function () {
 	placeMosaique(mosaique);
 	setEvent();
 	resizeHeader();
-//	resizeInfoText();
+	//	resizeInfoText();
 	$(window).trigger('resize');
     } else {
 	$("#searchBarLog").show();
@@ -100,13 +100,31 @@ $('#send').click(function () {
 	$("#connectionButton").remove();
 	$("#connection").remove();
 	$("#connectionLog").hide(250);
-//	$("#connectionButton").hide(250);
-//	$("#connection").hide(250);
+	//	$("#connectionButton").hide(250);
+	//	$("#connection").hide(250);
 	$("#inscriptionButton").hide(250);
 	$("#inscriptionPage").hide(250);
-	$("#userInfo").html(user.firstname + " " + user.lastname);
-	CreateMosaique(mosaique[0], user.data);
+	$("#userInfo").html("Bienvenu " + user.username + ".");
+	CreateMosaique(mosaique[0], user.data.folder);
+	$("#homeButton").show();
     }
+});
+
+$("#homeButton").click(function () {
+    var conn = new Connect();
+    var ret = conn.getUsrInfoByName(user.username);
+    $(".Mosaique").remove();
+    mosaique = new Array();
+    var data = conn.get_folder(ret.folders_id);
+    mosaique.push(new Mosaique(undefined, 15, 10));
+    CreateMosaique(mosaique[0], data);
+    $("#video").append(mosaique[0].html);
+    //mosaique[0].displayName($("#SearchBarInput").val());
+    placeMosaique(mosaique);
+    setEvent();
+    resizeHeader();
+    //	resizeInfoText();
+    $(window).trigger('resize');
 });
 
 $(document).ready(function () {

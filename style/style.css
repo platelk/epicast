@@ -234,7 +234,9 @@ header ul li
 {
     position : absolute;
     right : 15%;
-    top : 5%;
+    top : 10%;
+
+    color : #dddddd;
 }
 
 #SearchBar
@@ -268,4 +270,16 @@ header ul li
     text-align : center;
 
     background-color : #a55134;
+}
+
+#homeButton
+{
+    position : absolute;
+    display : none;
+
+    height : 90%;
+    width : 5%;
+
+    top : 2%;
+    right : 30%;
 }
