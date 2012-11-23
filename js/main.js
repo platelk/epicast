@@ -34,10 +34,10 @@ function resizeIframe() {
 }
 
 $(window).resize(function () {
-	resizeHeader();
-	$('.Mosaique').trigger('mosaiqueResize');
-	placeMosaique(mosaique);
-
+    resizeHeader();
+    $('.Mosaique').trigger('mosaiqueResize');
+    placeMosaique(mosaique);
+    setGrillEvent();
 });
 
 $('#connectionButton').click(function () {
@@ -104,7 +104,7 @@ $('#send').click(function () {
 	//	$("#connection").hide(250);
 	$("#inscriptionButton").hide(250);
 	$("#inscriptionPage").hide(250);
-	$("#userInfo").html("Bienvenu " + user.username + ".");
+	$("#userInfo").html("Bienvenue " + user.username + ".");
 	CreateMosaique(mosaique[0], user.data.folder);
 	$("#homeButton").show();
     }
