@@ -236,3 +236,20 @@ header ul li
     right : 15%;
     top : 5%;
 }
+
+#SearchBar
+{
+    position : absolute;
+    /* display : none; */
+
+    top : 30%;
+    right : 35%;
+
+    height : 80%;
+    width : 40%;
+}
+
+#SearchBarInput
+{
+    width : 55%;
+}

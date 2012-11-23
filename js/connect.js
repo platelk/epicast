@@ -95,7 +95,32 @@ function Connect()
 	data = $(document).data("json");
 	return (data);
     }
+    Connect.prototype.addUser = function (name, description, image, folder_id, username, email, password) {
+	var data;
 
+	$.ajax({
+	    url : "php/create_folder.php",
+	    type : "POST",
+	    data : {name : name, description : description, image : image, folder_id : folder_id, username : username, email : email, password : password},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		alert(data);
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
     Connect.prototype.get_buffer_zone = function (id) {
 	var data;
 
