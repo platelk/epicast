@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 header("Content-Type: application/json");
@@ -24,7 +25,7 @@ if (isset($_POST['type']) && !empty($_POST['type']))
 	    isset($_POST['container_id']) && !empty($_POST['container_id']) &&
 	    isset($_POST['date_begin']) && !empty($_POST['date_begin']) &&
 	    isset($_POST['date_end']) && !empty($_POST['date_end']) &&
-	    isset($_POST['offset']) && !empty($_POST['offset']))	  
+	    isset($_POST['offset']) && !empty($_POST['offset']))
 	  {
 	    $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
 	    $prepared = $db->prepare('CALL move_from_buffer_to_channel(:video_id, :container_id,

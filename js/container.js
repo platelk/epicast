@@ -225,8 +225,10 @@ function setGrillEvent() {
 	$("#addContainerSubmit").click(function () {
 	    var conn = new Connect();
 	    var ret = conn.add_video($("#addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
-	    if (ret) {
+	    if (ret != false) {
 		$("#addContainer").hide("clip", 200);
+		ret = conn.addVideoIn("folder", ret.buffer_zone[(ret.buffer_zone.length - 1)].id + "", user.folders_id + "");
+		$("#homeButton").trigger('click');
 	    }
 	});
     });

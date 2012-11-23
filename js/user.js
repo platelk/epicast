@@ -73,6 +73,7 @@ function User(username, password, connection) {
 	this.folders_id = undefined;
 	return true;
     }
+
     User.prototype.addVideo = function(name, description, image, live, video) {
 	if (this.online == false)
 	    return false;

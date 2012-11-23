@@ -11,7 +11,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
@@ -94,6 +93,35 @@ function Connect()
 	data = $(document).data("json");
 	return (data);
     }
+
+    Connect.prototype.addVideoIn = function (type_req, video_id, container_id) {
+	var data;
+
+	$.ajax({
+	    url : "php/add_video_in.php",
+	    type : "POST",
+	    data : {type : type_req, video_id : video_id, container_id : container_id},
+	    dataType : "text",
+	    async : false
+/*	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }*/
+
+	})
+	//data = $(document).data("json");
+	return (data);
+    }
+
+
     Connect.prototype.getUsrInfoByName = function (name) {
 	var data;
 
@@ -156,7 +184,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
