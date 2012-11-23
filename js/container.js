@@ -224,7 +224,10 @@ function setGrillEvent() {
 	});
 	$("#addContainerSubmit").click(function () {
 	    var conn = new Connect();
-	    var ret = conn.add_video($("addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
+	    var ret = conn.add_video($("#addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
+	    if (ret) {
+		$("#addContainer").hide("clip", 200);
+	    }
 	});
     });
 }

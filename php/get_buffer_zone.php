@@ -18,4 +18,4 @@ if (isset($_SESSION['id']))
     $db = null;
   }
 else
-  echo "{\"Error\": \"Bad request\" }";
+  echo "{\"Error\": \"Bad json\" }";

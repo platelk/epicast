@@ -11,6 +11,7 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
+		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);

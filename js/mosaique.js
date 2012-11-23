@@ -121,7 +121,7 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
     }
 
     Mosaique.prototype.mosaiquePosition = function () {
-	var border_width = parseInt($(".MosContainer").css('border-width'));
+//	var border_width = parseInt($(".MosContainer").css('border-width'));
 	border_width = 2
 	for (i in this.container) {
 	    this.container[i].html.css('height', (((this.cellHeight * this.container[i].important)) + (this.gridspaceY * (this.container[i].important - 1))) - (border_width * 2));
