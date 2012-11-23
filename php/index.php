@@ -18,6 +18,15 @@ if (isset($_SESSION['username']))
   {
     echo "username: " . $_SESSION['username'];
     ?>
+		<form action="add_video_in.php" method="POST">
+			move</br>type: <input type="text" name="type"><br />
+			video_id: <input type="text" name="video_id"/><br />
+			container_id: <input type="text" name="container_id"/><br />
+			date_begin: <input type="text" name="date_begin"/><br />
+			date_end: <input type="text" name="date_end"/><br />
+			offset: <input type="text" name="offset"/><br />
+			<input type="submit" /><br />
+		</form>
 		<form action="message.php" method="POST">
 			add</br>action: <input type="text" name="action"/><br />
 			message: <input type="text" name="message"/><br />
