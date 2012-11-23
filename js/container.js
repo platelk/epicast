@@ -28,7 +28,7 @@ function Container(id, name, description, link, x, y) {
 	this.info.append(description);
 	this.info.addClass('videoInfo');
 	this.html.append(this.info);
-	this.id = id;
+	this.id = parseInt(id);
 	this.important = 2;
 	this.html.data('important', 2);
 	if (typeof x == "undefined") {
@@ -115,7 +115,7 @@ function Stream(id, name, description, link, x, y, image) {
 
     /* ----- */
     // Run init()
-    this.init();
+    this.init(id, name, description, link, x, y, image);
 }
 
 function Video(id, name, description, link, x, y, image) {
@@ -161,10 +161,12 @@ function Video(id, name, description, link, x, y, image) {
 
     /* ----- */
     // Run init()
-    this.init();
+    this.init(id, name, description, link, x, y, image);
 }
 
 function Folder(link) {
+
+
 
     // Attribut definissant les class/id
     this.streamClass = 'folderClass';
@@ -222,9 +224,8 @@ function setGrillEvent() {
 	    $("#addContainer").hide("clip", 200);
 	});
 	$("#addContainerSubmit").click(function () {
-	    alert("Start wait...")
-	    var ret = user.addVideo($("addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerFil").val());
-	    alert(ret);
+	    var conn = new Connect();
+	    var ret = conn.add_video($("addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
 	});
     });
 }

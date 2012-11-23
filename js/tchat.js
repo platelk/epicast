@@ -3,7 +3,7 @@
 ** made by platel_k
 */
 
-function Tchat(usr, connect) {
+function Tchat(usr, connect, id) {
     /*
     **-----------------------------
     ** Attribut of Tchat Class
@@ -18,9 +18,8 @@ function Tchat(usr, connect) {
     this.allMsg;
     this.connect;
     this.usr;
-    /* -------- TEST ---------*/
-    this.login = "platel_k";
-    /* -------- TEST -------- */
+    this.id;
+    this.login;
 
     /*
     **-----------------------------
@@ -40,7 +39,7 @@ function Tchat(usr, connect) {
     **-----------------------------
     ** Execute part of Tchat Class
     */
-    if (this.init(usr, connect) == true) {
+    if (this.init(usr, connect, id) == true) {
 	return (true);
     } else {
 	return (false);
@@ -52,9 +51,9 @@ function Tchat(usr, connect) {
 ** Methode declaration of Tchat Class
 */
 
-function tchat_init(usr, connect) {
+function tchat_init(usr, connect, id) {
 
-    /*if (typeof usr != "undefined") {
+    if (typeof usr != "undefined") {
 	this.usr = usr
     } else {
 	// Return
@@ -65,7 +64,9 @@ function tchat_init(usr, connect) {
     } else {
 	// Return
 	return (false);
-    }*/
+    }
+
+    this.id = id;
 
     this.classBox = "tchat"
     this.classSendMessage = "sendMessage"
@@ -89,7 +90,7 @@ function tchat_init(usr, connect) {
 	    var tchat = $(".sendMessage .msgInput").parent().parent().parent().data("parent");
 	    var msg = $(".sendMessage .msgInput").val();
 	    $(".sendMessage .msgInput").val('');
-	    tchat.addMsg(msg, tchat.login)
+	    tchat.addMsg(msg, user.username);
 	});
     });
     // Return
@@ -109,6 +110,7 @@ function tchat_addMsg(msg, login) {
     var mess = new Message(login, msg);
     this.allMsg.push(mess);
 
+    this.sendMsg(msg);
     this.displayMsg(10);
     // Return
     return (true);
@@ -137,7 +139,9 @@ function tchat_setSize(height, width) {
     this.htmlBox.css("width", width);
 }
 
-function tchat_sendMsg() {
+function tchat_sendMsg(msg) {
+    alert("id = " + this.id);
+    this.connect.addMsg(msg, this.id, "0");
 }
 
 function tchat_recvMsg() {

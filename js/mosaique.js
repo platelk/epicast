@@ -59,8 +59,6 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
     }
 
     Mosaique.prototype.removeContainer = function (id_container) {
-	//alert(this.container[id_container].html.html());
-	//this.container[id_container].html.remove();
 	for (var i = 0; i < this.nbLine; i++) {
 	    for (var j = 0; j < this.nbCellByLine; j++) {
 		if (this.map[i][j] == id_container) {
@@ -322,9 +320,14 @@ function CreateMosaique(mosa, data) {
     mosa.init();
     var c;
 
-    video  = data.folder.videos;
+    video  = data.videos;
+    if (typeof video == "undefined") {
+	video = data.videos;
+	if (typeof video == "undefined") {
+	    return (false);
+	}
+    }
     for (i in video) {
-	alert(video[i]);
 	c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image);
 	mosa.addContainer(c);
     }

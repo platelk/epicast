@@ -104,3 +104,16 @@
     width : 150px;
     height : 40px;
 }
+
+#inscriptionLog
+{
+    position : absolute;
+    display : none;
+    right : 25%;
+    top : 15%;
+
+    height : 5%;
+    width : 30%;
+
+    text-align : center;
+}

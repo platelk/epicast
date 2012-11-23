@@ -15,7 +15,6 @@ function Connect()
 		    $(document).data("json", null);
 		    return (false);
 		} else {
-		    alert(data);
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
 		}
@@ -42,13 +41,13 @@ function Connect()
 	})
     }
 
-    Connect.prototype.add_video = function (name, description, image, live, email, password) {
+    Connect.prototype.addMsg = function(msg, aim_id, id_parent)
+    {
 	var data;
-
 	$.ajax({
-	    url : "php/add_video.php",
+	    url : "php/message.php",
 	    type : "POST",
-	    data : {name : name, description : description, image : image, live : live, email : email, password : password},
+	    data : {action : "add", message : msg, aim_id : "" + aim_id, id_parent : id_parent},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
@@ -56,7 +55,32 @@ function Connect()
 		    $(document).data("json", null);
 		    return (false);
 		} else {
-		    alert(data);
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
+    Connect.prototype.add_video = function (name, description, image, live, video) {
+	var data;
+
+	$.ajax({
+	    url : "php/add_video.php",
+	    type : "POST",
+	    data : {name : name, description : description, image : image, live : live, video : video, MAX_FILE_SIZE : 100000},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
 		}
@@ -65,6 +89,31 @@ function Connect()
 		$(document).data("json", null);
 	    }
 
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+    Connect.prototype.getUsrInfoByName = function (name) {
+	var data;
+
+	$.ajax({
+	    url : "php/get_user_info_name.php",
+	    type : "POST",
+	    data : {username : name},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
 	})
 	data = $(document).data("json");
 	return (data);
@@ -95,13 +144,14 @@ function Connect()
 	data = $(document).data("json");
 	return (data);
     }
-    Connect.prototype.addUser = function (name, description, image, folder_id, username, email, password) {
+
+    Connect.prototype.addUser = function (username, email, password, repassword) {
 	var data;
 
 	$.ajax({
-	    url : "php/create_folder.php",
+	    url : "php/signup.php",
 	    type : "POST",
-	    data : {name : name, description : description, image : image, folder_id : folder_id, username : username, email : email, password : password},
+	    data : {username : username, email : email, password : password, repassword : repassword},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
@@ -195,7 +245,7 @@ function Connect()
 		$(document).data("json", null);
 	    }
 	})
-	data = $(document).data("e");
+	data = $(document).data("json");
 	return (data);
     }
 

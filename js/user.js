@@ -48,6 +48,7 @@ function User(username, password, connection) {
 	if (array == null || typeof array.user == 'undefined')
 	    return false;
 	this.online = true;
+	this.username = array.user.username;
 	this.password = array.user.password;
 	this.firstname = array.user.firstname;
 	this.lastname = array.user.lastname;
@@ -72,12 +73,12 @@ function User(username, password, connection) {
 	this.folders_id = undefined;
 	return true;
     }
-    User.prototype.addVideo = function(name, description, image, folders_id) {
+    User.prototype.addVideo = function(name, description, image, live, video) {
 	if (this.online == false)
 	    return false;
 	if (typeof name == 'undefined' || typeof description == 'undefined' || typeof image == 'undefined' || typeof folders_id == 'undefined')
 	    return false;
-	var array = this.connection.add_video(name, description, image, folders_id);
+	var array = this.connection.add_video(name, description, image, live, video);
 	/* CHECKER LE RETOUR DE L'ARRAY */
 	return true;
     }

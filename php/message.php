@@ -6,7 +6,7 @@ session_start();
 header("Content-Type: application/json");
 if (isset($_POST['action']) && !empty($_POST['action']))
   {
-    if ($_POST['action'] == "add" && isset($_SESSION['id']) && 
+    if ($_POST['action'] == "add" && isset($_SESSION['id']) &&
 	isset($_POST['message']) && !empty($_POST['message']) &&
 	isset($_POST['aim_id']) && !empty($_POST['aim_id']) && isset($_POST['id_parent']))
       add_message($_POST['message'], $_POST['aim_id'], $_POST['id_parent']);
@@ -23,14 +23,14 @@ if (isset($_POST['action']) && !empty($_POST['action']))
       echo "{\"Error\": \"Bad request\"}";
   }
 else
-  echo "{\"Error\": \"Bad request\"}";
+  echo "{\"Error\": \"Bad action\"}";
 
 
 function add_message($message, $aim_id, $id_parent)
 {
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
   $prepared = $db->prepare("CALL add_message(:user_id, :content, :id_parent, :aim_id);");
-  $prepared->execute(array('user_id' => $_SESSION['id'], 
+  $prepared->execute(array('user_id' => $_SESSION['id'],
 			   'content' => $message,
 			   'id_parent' => $id_parent,
 			   'aim_id' => $aim_id));
@@ -49,7 +49,7 @@ function get_message($type, $aim_id, $nbr, $begin)
 {
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
   $prepared = $db->prepare("CALL get_message(:type, :aim_id, :nbr, :begin);");
-  $prepared->execute(array('type' => $type, 
+  $prepared->execute(array('type' => $type,
 			   'aim_id' => $aim_id,
 			   'nbr' => $nbr,
 			   'begin' => $begin));

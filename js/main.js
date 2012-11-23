@@ -2,10 +2,13 @@
 //// Principal Event //
 ///////////////////////
 
+$("#homeButton").hide();
 $("#connectionLog").hide();
 mosaique = new Array();
 var connection = false;
 var user = new User();
+
+
 
 function resizeHeader() {
 	var h = $('header').height();
@@ -14,7 +17,7 @@ function resizeHeader() {
 	$('#logo').css('font-size', 0.9 * parseInt(h));
 	$('#connectionButton').css('font-size', 0.6 * parseInt(h));
 	$('#inscriptionButton').css('font-size', 0.6 * parseInt(h));
-	$('.Mosaique').css('font-size', 0.5 * parseInt(h));
+	$('.Mosaique').css('font-size', 0.3 * parseInt(h));
 }
 
 function resizeInfoText() {
@@ -23,12 +26,11 @@ function resizeInfoText() {
 
 		var t = this.children('p');
 
-		t.css('font-size', 0.5 * parseInt(h));
+		t.css('font-size', 0.3 * parseInt(h));
 	})
 }
 
 function resizeIframe() {
-	$('iframe')
 }
 
 $(window).resize(function () {
@@ -57,6 +59,32 @@ $('header').mouseleave(function () {
     }
 });
 
+$('#SearchBarButton').click(function () {
+    var conn = new Connect();
+
+    var ret = conn.getUsrInfoByName($("#SearchBarInput").val());
+
+    if (ret) {
+	var conn = new Connect();
+	$(".Mosaique").remove();
+	mosaique = new Array();
+	var data = conn.get_folder(ret.folders_id);
+	mosaique.push(new Mosaique(undefined, 15, 10));
+	CreateMosaique(mosaique[0], data);
+	$("#video").append(mosaique[0].html);
+	mosaique[0].displayName($("#SearchBarInput").val());
+	placeMosaique(mosaique);
+	setEvent();
+	resizeHeader();
+//	resizeInfoText();
+	$(window).trigger('resize');
+    } else {
+	$("#searchBarLog").show();
+	$("#searchBarLog").html("No result matches.");
+	setTimeout(function () {$("#searchBarLog").hide();}, 3000);
+    }
+});
+
 $('#send').click(function () {
     var ret = user.connect($("#pseudo").val(), $("#password").val());
     if (ret) {
@@ -68,32 +96,22 @@ $('#send').click(function () {
 	$("#connectionLog").show(50);
 	$("#connectionLog").html("Connection Error");
     }
-    setTimeout(function () {
+    if (user.online) {
+	$("#connectionButton").remove();
+	$("#connection").remove();
 	$("#connectionLog").hide(250);
-	if (user.online) {
-	    $("#connectionButton").hide(250);
-	    // $("#connectionButton").off();
-	    $("#connection").hide(250);
-	    // $("#connection").off();
-	    $("#inscriptionButton").hide(250);
-	    $("#userInfo").html(user.firstname + " " + user.lastname);
-	    alert(user.data.folder.videos);
-	    CreateMosaique(mosaique[0], user.data);
-	}
-    }, 2300);
+//	$("#connectionButton").hide(250);
+//	$("#connection").hide(250);
+	$("#inscriptionButton").hide(250);
+	$("#inscriptionPage").hide(250);
+	$("#userInfo").html(user.firstname + " " + user.lastname);
+	CreateMosaique(mosaique[0], user.data);
+    }
 });
 
 $(document).ready(function () {
-    var tchat = new Tchat();
-    var o = new One_tabs();
     resizeHeader();
     resizeInfoText();
-
-    /* Test tchat */
-    tchat.setPos("10%", "10%");
-    tchat.setSize("60%", "60%");
-
-    /* -------------------- */
 
     mosaique.push(new Mosaique(undefined, 15, 10));
     // mosaique.push(new Mosaique());
@@ -104,9 +122,6 @@ $(document).ready(function () {
     //tab.add_tabs(new One_tabs());
     tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
     tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletMoin('-', 'moins')));
-    o.onglet.icon = "tchat";
-    o.tab.add_content(tchat.getHtml());
-    tab.add_tabs(o);
     tab.displayAll();
     $('#tabs').tabs();
     //CreateMosaique(mosaique[1], 12);

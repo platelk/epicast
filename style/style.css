@@ -253,3 +253,19 @@ header ul li
 {
     width : 55%;
 }
+
+#searchBarLog
+{
+    position : absolute;
+    display : none;
+
+    top : 100%;
+    right : 45%;
+
+    height : 80%;
+    width : 55%;
+
+    text-align : center;
+
+    background-color : #a55134;
+}
