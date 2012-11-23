@@ -61,7 +61,7 @@ if (isset($_SESSION['username']))
 		   image<input type="text" name="image"/><br />
 		   <input type="checkbox" name="live" value="live">live<br>
 		   <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
-		   video : <input type="file" name="video" />
+		   video : <input type="text" name="video" />
 		    <input type="submit" /><br />
 		   </form>
 		<form action="get_buffer_zone.php" method="POST">
