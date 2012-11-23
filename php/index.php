@@ -30,14 +30,13 @@ if (isset($_SESSION['username']))
 		<form action="message.php" method="POST">
 			add</br>action: <input type="text" name="action"/><br />
 			message: <input type="text" name="message"/><br />
-			aim_id: <input type="text" name="aim_id"/><br />
+			id_message_channel: <input type="text" name="id_message_channel"/><br />
 			id_parent: <input type="text" name="id_parent"/><br />
 			<input type="submit" /><br />
 		</form>
 		<form action="message.php" method="POST">
 			get</br>action: <input type="text" name="action"/><br />
-			type <input type="text" name="type"/><br />
-			aim_id: <input type="text" name="aim_id"/><br />
+			id_message_channel: <input type="text" name="id_message_channel"/><br />
 			nbr: <input type="text" name="nbr"/><br />
 			begin: <input type="text" name="begin"/><br />
 			<input type="submit" /><br />
@@ -45,6 +44,12 @@ if (isset($_SESSION['username']))
 		<form action="message.php" method="POST">
 			delete</br>action: <input type="text" name="action"/><br />
 			id: <input type="text" name="id"/><br />
+		   <input type="submit" /><br />
+		</form>
+		<form action="message.php" method="POST">
+		   create</br>action: <input type="text" name="action"/><br />
+		   name: <input type="text" name="name"/><br />
+			description: <input type="text" name="description"/><br />
 		   <input type="submit" /><br />
 		</form>
 		<form action="get_video.php" method="POST">

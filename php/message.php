@@ -8,17 +8,24 @@ if (isset($_POST['action']) && !empty($_POST['action']))
   {
     if ($_POST['action'] == "add" && isset($_SESSION['id']) &&
 	isset($_POST['message']) && !empty($_POST['message']) &&
-	isset($_POST['aim_id']) && !empty($_POST['aim_id']) && isset($_POST['id_parent']))
-      add_message($_POST['message'], $_POST['aim_id'], $_POST['id_parent']);
+	isset($_POST['id_message_channel']))
+      {
+	if (isset($_POST['id_parent']))
+	  $id_parent = $_POST['id_parent'];
+	else
+	  $id_parent = NULL;
+	add_message($_POST['message'], $_POST['id_message_channel'], $id_parent);
+      }
     else if ($_POST['action'] == 'delete' && isset($_SESSION['id']) &&
-	     isset($_POST['id']) && !empty($_POST['id']))
+	     isset($_POST['id']))
       delete_message($_POST['id']);
-    else if ($_POST['action'] == "get" &&
-	     isset($_POST['type']) && !empty($_POST['type']) &&
-	     isset($_POST['aim_id']) && !empty($_POST['aim_id']) &&
-	     isset($_POST['nbr']) && !empty($_POST['nbr']) &&
-	     isset($_POST['begin']) && !empty($_POST['begin']))
-      get_message($_POST['type'], $_POST['aim_id'], $_POST['nbr'], $_POST['begin']);
+    else if ($_POST['action'] == "get" && isset($_POST['id_message_channel']) &&
+	     isset($_POST['nbr']) && isset($_POST['begin']))
+      get_message($_POST['id_message_channel'], $_POST['nbr'], $_POST['begin']);
+    else if ($_POST['action'] == "create" &&
+	     isset($_POST['name']) && !empty($_POST['name']) &&
+	     isset($_POST['description']) && !empty($_POST['description']))
+      create_message_channel($_POST['name'], $_POST['description']);
     else
       echo "{\"Error\": \"Bad request\"}";
   }
@@ -26,14 +33,14 @@ else
   echo "{\"Error\": \"Bad action\"}";
 
 
-function add_message($message, $aim_id, $id_parent)
+function add_message($message, $id_message_channel, $id_parent)
 {
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
-  $prepared = $db->prepare("CALL add_message(:user_id, :content, :id_parent, :aim_id);");
+  $prepared = $db->prepare("CALL add_message(:user_id, :content, :id_parent, :id_message_channel);");
   $prepared->execute(array('user_id' => $_SESSION['id'],
 			   'content' => $message,
 			   'id_parent' => $id_parent,
-			   'aim_id' => $aim_id));
+			   'id_message_channel' => $id_message_channel));
   $db = null;
 }
 
@@ -45,12 +52,11 @@ function delete_message($id)
   $db = null;
 }
 
-function get_message($type, $aim_id, $nbr, $begin)
+function get_message($id_message_channel, $nbr, $begin)
 {
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
-  $prepared = $db->prepare("CALL get_message(:type, :aim_id, :nbr, :begin);");
-  $prepared->execute(array('type' => $type,
-			   'aim_id' => $aim_id,
+  $prepared = $db->prepare("CALL get_message(:id_message_channel, :nbr, :begin);");
+  $prepared->execute(array('id_message_channel' => $id_message_channel,
 			   'nbr' => $nbr,
 			   'begin' => $begin));
   echo "{\n";
@@ -65,5 +71,16 @@ function get_message($type, $aim_id, $nbr, $begin)
     }
   echo "\n]\n";
   echo "}";
+  $db = null;
+}
+
+function create_message_channel($name, $description)
+{
+  $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+  $prepared = $db->prepare("CALL create_message_channel(:name, :description);");
+  $prepared->execute(array('name' => $name,
+			   'description' => $description));
+  $ligne = $prepared->fetch(PDO::FETCH_ASSOC);
+  echo json_encode($ligne);
   $db = null;
 }
