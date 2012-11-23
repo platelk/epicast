@@ -98,6 +98,27 @@
 
 }
 
+.MosContainer:hover .videoInfo
+{
+	position : absolute;
+	display : inline;
+
+	z-index: 20;
+	bottom : 0%;
+	left: 0%;
+	height : 40%;
+	width: 100%;
+	opacity: 0.8;
+	font-size: 100%;
+	color : #ffffff;
+	background-color: #111111;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
 .videoInfo p
 {
 	position : absolute;

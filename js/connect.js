@@ -51,6 +51,34 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
+		alert(data);
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
+    Connect.prototype.getMsg = function(aim_id, nbr, begin, type)
+    {
+	var data;
+	$.ajax({
+	    url : "php/message.php",
+	    type : "POST",
+	    data : {action : "get", aim_id : "" + aim_id, nbr : nbr, begin : begin, type : type},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);

@@ -107,9 +107,6 @@ function tchat_addMsg(msg, login) {
 	// Return
 	return (false);
     }
-    var mess = new Message(login, msg);
-    this.allMsg.push(mess);
-
     this.sendMsg(msg);
     this.displayMsg(10);
     // Return
@@ -118,6 +115,7 @@ function tchat_addMsg(msg, login) {
 
 function tchat_displayMsg(nb) {
     this.htmlReceiveMessage.html('');
+    this.recvMsg();
     i = this.allMsg.length - 1 - nb;
     if (i < 0) {
 	i = 0;
@@ -140,11 +138,14 @@ function tchat_setSize(height, width) {
 }
 
 function tchat_sendMsg(msg) {
-    alert("id = " + this.id);
-    this.connect.addMsg(msg, this.id, "0");
+    var ret = this.connect.addMsg(msg, this.id, "0");
+    alert(ret);
 }
 
 function tchat_recvMsg() {
+    var ret = this.connect.getMsg(this.id, 2000, 1, "video");
+    alert(ret);
+    return (ret);
 }
 
 

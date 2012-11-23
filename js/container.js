@@ -144,7 +144,7 @@ function Video(id, name, description, link, x, y, image) {
     Video.prototype.displayContent = function () {
 	content = $('<div />');
 	content.addClass("video");
-	content.append('<iframe width="560" height="315" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
+	content.append('<iframe width="1280" height="768" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
 	return (content);
     }
 
