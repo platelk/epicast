@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 23, 2012 at 01:07 PM
+-- Generation Time: Nov 23, 2012 at 03:44 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -46,7 +46,7 @@ BEGIN
         VALUES (NULL, name, description, owner);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_message`(IN `a_user_id` INT, IN `a_content` TEXT, IN `a_id_parent` INT, IN `a_id_video` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_message`(IN `a_user_id` INT, IN `a_content` TEXT, IN `a_id_parent` INT, IN `a_id_message_channel` INT)
     NO SQL
 BEGIN
 	INSERT INTO message 
@@ -54,10 +54,8 @@ BEGIN
         	a_user_id, 
                 a_id_parent, 
                 a_content, 
-                CURRENT_TIMESTAMP);
-	INSERT INTO message_video
-        VALUES (LAST_INSERT_ID(),
-        	a_id_video);
+                CURRENT_TIMESTAMP,
+                a_id_message_channel);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `add_tag`(
@@ -331,19 +329,14 @@ BEGIN
 	SELECT* FROM users WHERE username = a_name;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_message`(IN `a_type` VARCHAR(255), IN `a_id` INT, IN `a_nbr` INT, IN `a_begin` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_message`(IN `a_id` INT, IN `a_nbr` INT, IN `a_begin` INT)
     NO SQL
 BEGIN
-	IF a_type = 'video' THEN
-                SELECT u.id, u.username, m.id, m.content, m.date, m.id_parent 
-                FROM message_video AS mv 
-                JOIN message AS m 
-                JOIN users AS u 
-                ON mv.id_message = m.id 
-                AND m.user_id = u.id 
-                WHERE mv.id_video = a_id 
-                LIMIT a_begin, a_nbr;
-	END IF;	
+	SELECT * FROM message 
+        JOIN users
+        ON users.id = message.user_id
+        WHERE id_message_channel = a_id
+        LIMIT a_begin, a_nbr;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user_informations`(
@@ -779,20 +772,15 @@ CREATE TABLE IF NOT EXISTS `message` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id_message_channel` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `message`
 --
 
 INSERT INTO `message` (`id`, `user_id`, `id_parent`, `content`, `date`, `id_message_channel`) VALUES
-(1, 15, NULL, 'sssssssssssss', '2012-11-21 17:27:21', 0),
-(2, 15, NULL, 'ssssssssssssssssss', '2012-11-21 17:27:21', 0),
-(3, 16, NULL, 'ss', '2012-11-21 17:27:21', 0),
-(4, 15, 1, 'ddddddd', '2012-11-21 17:27:21', 0),
-(5, 15, 1, 'ddddddddddddddddddddddddddddddddddddddddd', '2012-11-21 17:27:21', 0),
-(6, 15, 0, 'plopkdkdkd', '2012-11-23 01:08:46', 0),
-(7, 15, 0, 'plopkdkdkd', '2012-11-23 01:09:35', 0);
+(8, 15, NULL, 'plopplop', '2012-11-23 14:24:37', 1),
+(11, 15, NULL, 'cololilol', '2012-11-23 14:28:41', 1);
 
 -- --------------------------------------------------------
 
@@ -805,7 +793,14 @@ CREATE TABLE IF NOT EXISTS `message_channel` (
   `name` int(11) NOT NULL,
   `comment` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `message_channel`
+--
+
+INSERT INTO `message_channel` (`id`, `name`, `comment`) VALUES
+(1, 0, 0);
 
 -- --------------------------------------------------------
 
