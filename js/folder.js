@@ -110,7 +110,7 @@ function Tabs(nb_max_onglet)
 		this.displaySpecial(this.tabsSpecial);
 		$('#tabs').tabs("destroy");
 		$('#tabs').tabs();
-	} 
+	}
 
 	Tabs.prototype.display = function (tab) {
 		var i = this.nb_max_onglet * this.page_active;
@@ -284,7 +284,7 @@ function Onglet(icon, color)
 				if (i != parent.onglet_active)
 					$('#tabs-' + i).css('left', -1000 + '%');
 				else
-					$('#tabs-' + i).css('left', 0 + '%');	
+					$('#tabs-' + i).css('left', 0 + '%');
 			}
 			if (tmp != parent.onglet_active)
 				parent.displayAll();
@@ -294,7 +294,7 @@ function Onglet(icon, color)
 function OngletPlus(icon, name, color)
 {
 	this.name = name;
-	Onglet.call(this, '+', icon, color);
+	Onglet.call(this, '<img src="img/down.png" id=""/>', '<img src="img/down.png" />', color);
 	if (typeof OngletPlus.initialized == 'undefined') {
 		for (var element in Onglet.prototype ) {
 			OngletPlus.prototype[element] = Onglet.prototype[element];
@@ -317,31 +317,40 @@ function OngletPlus(icon, name, color)
 
 function OngletMoin(icon, name, color)
 {
-	this.name = name;
-	this.active = 0;
-	Onglet.call(this, '-', icon, color);
-	if (typeof OngletMoin.initialized == 'undefined') {
-		for (var element in Onglet.prototype ) {
-			OngletMoin.prototype[element] = Onglet.prototype[element];
-		}
+    this.name = name;
+    this.active = 0;
+    Onglet.call(this, '<img src="img/right.png" id="rightOnglet" />', '<img src="img/right.png" />', color);
+    if (typeof OngletMoin.initialized == 'undefined') {
+	for (var element in Onglet.prototype ) {
+	    OngletMoin.prototype[element] = Onglet.prototype[element];
 	}
-	OngletMoin.initialized = true;
-	this.html.children('a').off();
-	this.html.children('a').on({
-		click  : function () {
-			var parent = $(this).data('parent').data('parent').data('parent').data('me');
-			if (this.active == -1){
-				//parent.tabs[parent.onglet_active].tab.html.show();
-				$('#tabs').css('left', -($('#tabs').width() - $('#tabs_selected').width()));
-				this.active = 0;
-			}
-			else if (parent.tabs.length != 0){
-				/*for (i in parent.tabs) {
-					parent.tabs[i].tab.html.hide();
-				}*/
-				$('#tabs').css('left', 0 + '%');				
-				this.active = -1;
-			}
+    }
+    // $("#rightOnglet").click(function () {
+    // 	if ($(this).src == "img/right.png") {
+    // 	    $(this).src = "img/left.png";
+    // 	} else if ($(this).src == "img/left.png") {
+    // 	    $(this).src = "img/right.png";
+    // 	}
+    // });
+    OngletMoin.initialized = true;
+    this.html.children('a').off();
+    this.html.children('a').on({
+	click  : function () {
+	    var parent = $(this).data('parent').data('parent').data('parent').data('me');
+	    if (this.active == -1){
+		//parent.tabs[parent.onglet_active].tab.html.show();
+		$('#tabs').css('left', -($('#tabs').width() - $('#tabs_selected').width()));
+		this.active = 0;
+		$("#rightOnglet").attr("src", "img/right.png");
+	    }
+	    else if (parent.tabs.length != 0){
+		/*for (i in parent.tabs) {
+		  parent.tabs[i].tab.html.hide();
+		  }*/
+		$('#tabs').css('left', 0 + '%');
+		this.active = -1;
+		$("#rightOnglet").attr("src", "img/left.png");
+	    }
 	}});
 
 }

@@ -7,7 +7,7 @@ $("#connectionLog").hide();
 mosaique = new Array();
 var connection = false;
 var user = new User();
-
+var idTime = 0;
 
 
 function resizeHeader() {
@@ -58,7 +58,6 @@ $('header').mouseleave(function () {
 $('header').mouseenter(function () {
     clearTimeout(idTime);
 });
-
 
 function hideConnection() {
     $('#connection').hide(200, function () {
