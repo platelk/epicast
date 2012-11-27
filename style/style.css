@@ -31,7 +31,7 @@ header
 	height: 4.5%;
 	width: 100%;
 /*	border : 3px #000000 solid;*/
-	box-shadow : 0px 1px 40px black;
+	box-shadow : 0px 0px 20px black;
 	margin : 0px 0px 0px 0px;
 	padding : 0px 0px 0px 0px;
 	z-index : 84;
@@ -245,7 +245,7 @@ header ul li
     position : absolute;
     /* display : none; */
 
-    top : 1%;
+    top : 10%;
     right : 35%;
 
     height : 80%;
@@ -256,13 +256,13 @@ header ul li
 #SearchBarButton
 {
     border-style : none;
-    height : 100%;
+    height : 90%;
 }
 
 #SearchBarInput
 {
-    width : 55%;
-    height : 100%;
+    width : 65%;
+    height : 70%;
 }
 
 #searchBarLog
@@ -271,10 +271,10 @@ header ul li
     display : none;
 
     top : 120%;
-    right : 44.5%;
+    left : 0%;
 
     height : 90%;
-    width : 55.5%;
+    width : 65.5%;
 
     text-align : center;
 
