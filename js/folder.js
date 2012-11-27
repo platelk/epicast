@@ -52,6 +52,9 @@ function Tabs(nb_max_onglet)
 			tabs_to_add.html.data('id', this.tabs.length - 1);
 			this.setId(1);
 			tabs_to_add.html.data('parent', this.html);
+			this.onglet_active = this.tabs.length - 1;
+			if (this.page_active + 1 < this.tabs.length / this.nb_max_onglet)
+				this.page_active++;
 			return (this.tabs.length - 1);
 		}
 		else {
@@ -273,8 +276,18 @@ function Onglet(icon, color)
 	this.html.children('a').off();
 	this.html.children('a').on({
 		click : function () {
-			$(this).data('parent').data('parent').data('parent').data('me').onglet_active = $(this).data('parent').data('me').num;
-			$(this).data('parent').data('parent').data('parent').data('me').displayAll();
+			var parent = $(this).data('parent').data('parent').data('parent').data('me');
+			var tmp = parent.onglet_active;
+			parent.onglet_active = $(this).data('parent').data('me').num;
+			for (i in parent.tabs)
+			{
+				if (i != parent.onglet_active)
+					$('#tabs-' + i).css('left', -1000 + '%');
+				else
+					$('#tabs-' + i).css('left', 0 + '%');	
+			}
+			if (tmp != parent.onglet_active)
+				parent.displayAll();
 		}});
 }
 
