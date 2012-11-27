@@ -51,13 +51,22 @@ $('#connectionButton').click(function () {
 
 $('header').mouseleave(function () {
     if (connection == true) {
-	$('#connection').hide(200, function () {
-	    connection = false;
-	    $("#connectionLog").hide();
-	    $('#connectionButton').show(200);
-	});
+	idTime = setTimeout(hideConnection, 1000);
     }
 });
+
+$('header').mouseenter(function () {
+    clearTimeout(idTime);
+});
+
+
+function hideConnection() {
+    $('#connection').hide(200, function () {
+	connection = false;
+	$("#connectionLog").hide();
+	$('#connectionButton').show(200);
+    });
+}
 
 $('#SearchBarButton').click(function () {
     var conn = new Connect();
