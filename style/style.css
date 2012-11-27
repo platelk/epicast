@@ -251,18 +251,28 @@ header ul li
     height : 80%;
     width : 40%;
     margin : 0px 0px 0px 0px;
+    padding : 0px 0px 0px 0px;
 }
 
 #SearchBarButton
 {
     border-style : none;
-    height : 90%;
+    height : 85%;
+    margin : 0px 0px 0px 0px;
+/*    padding : 0px 0px 0px 0px;*/
+    -webkit-border-radius : 0px 10px 10px 0px;
+    -moz-border-radius : 0px 10px 10px 0px;
 }
 
 #SearchBarInput
 {
     width : 65%;
     height : 70%;
+    margin : 0px 0px 0px 0px;
+/*    padding : 0px 0px 0px 0px;*/
+    boder-style : none;
+    -webkit-border-radius : 10px 0px 0px 10px;
+    -moz-border-radius : 10px 0px 0px 10px;
 }
 
 #searchBarLog
