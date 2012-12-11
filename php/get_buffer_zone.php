@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: application/json");
 if (isset($_SESSION['id']))
   {
@@ -18,4 +19,4 @@ if (isset($_SESSION['id']))
     $db = null;
   }
 else
-  echo "{\"Error\": \"Bad json\" }";
+  echo "{\"Error\": \"Bad request\" }";

@@ -1,23 +1,33 @@
 <?php
 session_start();
 header("Content-Type: application/json");
-if (isset($_POST['elm_type']) && !empty($_POST['elm_type']) &&
-    isset($_POST['container_id']) && !empty($_POST['container_id']) &&
-    isset($_POST['elm_id']) && !empty($_POST['elm_id']) &&
-    isset($_POST['n_pos_x']) && !empty($_POST['n_pos_x']) &&
-    isset($_POST['n_pos_y']) && !empty($_POST['n_pos_y']))
+if (isset($_SESSION['id']))
   {
-    if ($_POST['container_type'] == "folder")
+    if (isset($_POST['elm_type']) && !empty($_POST['elm_type']) &&
+	isset($_POST['container_id']) && !empty($_POST['container_id']) &&
+	isset($_POST['elm_id']) && !empty($_POST['elm_id']) &&
+	isset($_POST['n_pos_x']) && !empty($_POST['n_pos_x']) &&
+	isset($_POST['n_pos_y']) && !empty($_POST['n_pos_y']))
       {
-	$prepared = $db->prepare('CALL move(:type, :x, :y, :elm_id, :cont_id)');
-	$prepared->execute(array('type' => $_POST['elm_type'],
-				 'x' => $_POST['n_pos_x'],
-				 'y' => $_POST['n_pos_y'],
-				 'elm_id' => $_POST['elm_id'],
-				 'container_id' => $_POST['container_id']));
+	$db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+	$prepared = $db->prepare('CALL get_folder(:id)');
+	$prepared->execute(array('id' => $_POST['container_id']));    
+	$info = $prepared->fetch();
+	if ($info['owner'] == $_SESSION['id'])
+	  {
+	    $prepared = $db->prepare('CALL move(:type, :x, :y, :elm_id, :cont_id)');
+	    $prepared->execute(array('type' => $_POST['elm_type'],
+				     'x' => $_POST['n_pos_x'],
+				     'y' => $_POST['n_pos_y'],
+				     'elm_id' => $_POST['elm_id'],
+				     'container_id' => $_POST['container_id']));
+	  }
+	else
+	  echo "{\"Error\": \"This is not your folder\"}";
       }
     else
-      echo "{\"Error\": \'Bad request\"}";
+      echo "{\"Error\": \"Bad request\"}";
   }
-
+else
+  echo "{\"Error\": \"You aren't connected\"}";
 ?>

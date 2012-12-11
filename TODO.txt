@@ -1,6 +1,6 @@
 - Importance sur les videos
 - Pages d'accueil
-- Voir comment generer plusieur stream
+- Voir comment generer plusieurs streams
 - comment gerer les videos en local sur le serveur : <video></video> ?
-- Revoir l'ajout de video
-- Problemes avec la recup de message
+- Revoir l'ajout de videos
+- Problemes avec la recup de messages

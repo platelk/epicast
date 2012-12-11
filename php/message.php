@@ -35,21 +35,39 @@ else
 
 function add_message($message, $id_message_channel, $id_parent)
 {
-  $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
-  $prepared = $db->prepare("CALL add_message(:user_id, :content, :id_parent, :id_message_channel);");
-  $prepared->execute(array('user_id' => $_SESSION['id'],
-			   'content' => $message,
-			   'id_parent' => $id_parent,
-			   'id_message_channel' => $id_message_channel));
-  $db = null;
+  if (isset($_SESSION['id']))
+    {
+      $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+      $prepared = $db->prepare("CALL add_message(:user_id, :content, :id_parent, :id_message_channel);");
+      $prepared->execute(array('user_id' => $_SESSION['id'],
+			       'content' => $message,
+			       'id_parent' => $id_parent,
+			       'id_message_channel' => $id_message_channel));
+      $db = null;
+    }
+  else
+      echo "{\"Error\": \"You are not connected\"}";
 }
 
 function delete_message($id)
 {
-  $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
-  $prepared = $db->prepare("CALL delete_message(:id);");
-  $prepared->execute(array('id' => $id));
-  $db = null;
+  if (isset($_SESSION['id']))
+    {
+      $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
+      $prepared = $db->prepare('CALL get_message_by_id(:id)');
+      $prepared->execute(array('id' => $id));
+      $info = $prepared->fetch();
+      if ($info['user_id'] == $_SESSION['id'])
+	{
+	  $prepared = $db->prepare("CALL delete_message(:id);");
+	  $prepared->execute(array('id' => $id));
+	  $db = null;
+	}
+      else
+	echo "{\"Error\": \"This is not your message\"}";
+    }
+  else
+    echo "{\"Error\": \"You are not connected\"}";
 }
 
 function get_message($id_message_channel, $nbr, $begin)
@@ -76,6 +94,8 @@ function get_message($id_message_channel, $nbr, $begin)
 
 function create_message_channel($name, $description)
 {
+ 
+  //secu a faire la dessus ---> groupe admin ou droits attribue a chaque pocesseur de video,channel,folder
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
   $prepared = $db->prepare("CALL create_message_channel(:name, :description);");
   $prepared->execute(array('name' => $name,

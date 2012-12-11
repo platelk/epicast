@@ -78,6 +78,14 @@ if (isset($_SESSION['username']))
 		   video : <input type="text" name="video" />
 		    <input type="submit" /><br />
 		   </form>
+		<form action="create_folder.php" method="POST">
+		        Create_folder:<br />
+		   name<input type="text" name="name"/><br />
+		   description<input type="text" name="description"/><br />
+		   image<input type="text" name="image"/><br />
+		   parent_folder<input type="text" name="folder_id" /><br />
+		   <input type="submit" /><br />
+		   </form>
 		<form action="get_buffer_zone.php" method="POST">
 			get_buffer_zone.php: <input type="text" name="id"/><br />
 			<input type="submit" /><br />
@@ -93,3 +101,4 @@ if (isset($_SESSION['username']))
 ?>
 	</body>
 </html>
+
