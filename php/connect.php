@@ -1,7 +1,7 @@
 <?php
 session_start();
 header("Content-Type: application/json");
-if (!isset($_SESSION['id'])
+if (!isset($_SESSION['id']))
   {
     if (isset($_POST['username']) && isset($_POST['password']))
       {

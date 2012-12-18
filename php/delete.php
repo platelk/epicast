@@ -4,7 +4,7 @@ header("Content-Type: application/json");
 if (isset($_POST['id']) && !empty($_POST['id']) &&
     isset($_POST['type']) && !empty($_POST['type']))
   {
-    if ($_POST['type'] == "video" || $_POST['type'] == "folder" ||
+    if ($_POST['type'] == "video" || $_POST['type'] == "folders" ||
 	$_POST['type'] == "channel" || $_POST['type'] == "user")
       delete_folder($_POST['type'], $_POST['id']);
     else
@@ -26,11 +26,13 @@ function delete_folder($type, $id)
 	{
 	  $prepared = $db->prepare('CALL get_folder_content(:id)');
 	  $prepared->execute(array('id' => $id));
-	  $section = array("folder", "channel");
+	  $section = array("folders", "channel");
 	  foreach($section as $i)
 	    {
 	      while($line = $prepared->fetch(PDO::FETCH_ASSOC))
-		delete_folder($i, $line['id']);
+		{
+		  delete_folder($i, $line['id']);
+		}
 	      $prepared->nextRowset();
 	    }
 	  $prepared = $db->prepare('CALL delete_folder(:id)');
@@ -58,10 +60,10 @@ function delete_folder($type, $id)
       $prepared->execute(array('id' => $id));
       $info = $prepared->fetch();
       if ($info['user_id'] == $_SESSION['id'])
-	{
-	  $prepared = $db->prepare('CALL delete_video(:id)');
-	  $prepared->execute(array('id' => $id));
-	}
+      {
+	$prepared = $db->prepare('CALL delete_video(:id)');
+	$prepared->execute(array('id' => $id));
+      }
       else
 	echo "{\"Error\": \"This is not your channel\"}";
     }
@@ -72,9 +74,10 @@ function delete_folder($type, $id)
 	  $prepared = $db->prepare('CALL get_user_informations(:id);');
 	  $prepared->execute(array('id' => $id));
 	  $data = $prepared->fetch(PDO::FETCH_ASSOC);
-	  delete_folder("folder", $data['folders_id']);
 	  $prepared = $db->prepare('CALL delete_user(:id);');
 	  $prepared->execute(array('id' => $id));
+	  delete_folder("folders", $data['folders_id']);
+	  
 	}
       else
 	echo "{\"Error\": \"You can't delete another user than you\"}";

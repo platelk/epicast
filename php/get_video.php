@@ -7,7 +7,10 @@ if (isset($_POST['id']) && !empty($_POST['id']))
     $prepared = $db->prepare('CALL get_video(:id)');
     $prepared->execute(array('id' => $_POST['id']));
     $data = $prepared->fetch(PDO::FETCH_ASSOC);
-    echo json_encode($data);
+    if ($data == false)
+      echo "{\"Error\": \"Video doesn't exist\"}";
+    else
+      echo json_encode($data);
     $db = null;
   }
 else

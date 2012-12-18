@@ -18,36 +18,43 @@ if (isset($_SESSION['username']))
   {
     echo "username: " . $_SESSION['username'];
     ?>
-		<form action="add_video_in.php" method="POST">
-			move</br>type: <input type="text" name="type"><br />
-			video_id: <input type="text" name="video_id"/><br />
+
+		<form action="move_sth.php" method="POST">
+			move_sth.php<br />elm_type: <input type="text" name="elm_type"/><br />
 			container_id: <input type="text" name="container_id"/><br />
-			date_begin: <input type="text" name="date_begin"/><br />
-			date_end: <input type="text" name="date_end"/><br />
-			offset: <input type="text" name="offset"/><br />
+			elm_id: <input type="text" name="elm_id"/><br />
+			x: <input type="text" name="n_pos_x"/><br />
+			y: <input type="text" name="n_pos_y"/><br />
+			<input type="submit" /><br />
+		</form>
+		<form action="create_channel.php" method="POST">
+			create_channel.php<br />name: <input type="text" name="name"/><br />
+			description: <input type="text" name="description"/><br />
+			image: <input type="text" name="image"/><br />
+			folder_id: <input type="text" name="folder_id"/><br />
 			<input type="submit" /><br />
 		</form>
 		<form action="message.php" method="POST">
-			add</br>action: <input type="text" name="action"/><br />
+			message add</br>action: <input type="text" name="action"/><br />
 			message: <input type="text" name="message"/><br />
 			id_message_channel: <input type="text" name="id_message_channel"/><br />
 			id_parent: <input type="text" name="id_parent"/><br />
 			<input type="submit" /><br />
 		</form>
 		<form action="message.php" method="POST">
-			get</br>action: <input type="text" name="action"/><br />
+			message get</br>action: <input type="text" name="action"/><br />
 			id_message_channel: <input type="text" name="id_message_channel"/><br />
 			nbr: <input type="text" name="nbr"/><br />
 			begin: <input type="text" name="begin"/><br />
 			<input type="submit" /><br />
 		</form>
 		<form action="message.php" method="POST">
-			delete</br>action: <input type="text" name="action"/><br />
+			messsage delete</br>action: <input type="text" name="action"/><br />
 			id: <input type="text" name="id"/><br />
 		   <input type="submit" /><br />
 		</form>
 		<form action="message.php" method="POST">
-		   create</br>action: <input type="text" name="action"/><br />
+		   message create</br>action: <input type="text" name="action"/><br />
 		   name: <input type="text" name="name"/><br />
 			description: <input type="text" name="description"/><br />
 		   <input type="submit" /><br />
@@ -64,8 +71,12 @@ if (isset($_SESSION['username']))
 		        get_folder_from_user.php: <input type="text" name="id"/><br />
 			<input type="submit" /><br />
 		</form>
+		<form action="get_folder.php" method="POST">
+		        get_folder.php: <input type="text" name="id"/><br />
+			<input type="submit" /><br />
+		</form>
 		<form action="get_user_info_name.php" method="POST">
-		        get_user_info.php: <input type="text" name="username"/><br />
+		        get_user_info_name.php: <input type="text" name="username"/><br />
 			<input type="submit" /><br />
 		</form>
 		<form action="add_video.php" method="POST" enctype="multipart/form-data">
@@ -94,6 +105,25 @@ if (isset($_SESSION['username']))
 			delete.php: <input type="text" name="id"/><br />
 			type:<input type="text" name="type"/><br />
 			<input type="submit" /><br />
+		</form>
+		<form action="add_video_in.php" method="POST">
+		   folder:add_video_in.php:<br /> 
+                        type<input type="text" name="type"/><br />
+		   folder<br />
+		   video_id:<input type="text" name="video_id"/><br />
+		   container_id:<input type="text" name="container_id"/><br />
+		   <input type="submit" /><br />
+		</form>
+		   
+		<form action="add_video_in.php" method="POST">
+		   channel:add_video_in.php:<br />
+		   type<input type="text" name="type"/><br />
+		   video_id:<input type="text" name="video_id"/><br />
+		   container_id:<input type="text" name="container_id"/><br />
+		   date_begin:<input type="text" name="date_begin"/><br />
+		   date_end:<input type="text" name="date_end"/><br />
+		   offset:<input type="text" name="offset"/><br />
+		   <input type="submit" /><br />
 		</form>
 		<a href="disconnect.php">disconnect</a>
 <?php
