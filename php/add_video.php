@@ -19,9 +19,7 @@ if(isset($_SESSION['id']) &&
 			     'video' => $_POST['video'],
 			     'live' => $live,
 			     'user_id' => $_SESSION['id']));
-    $user_id = $_SESSION['id'];
     $db = null;
-    require("get_buffer_zone.php");
   }
 else
   echo "{\"Error\": \"Bad request\"}";
