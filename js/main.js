@@ -51,7 +51,7 @@ $('#connectionButton').click(function () {
 
 $('header').mouseleave(function () {
     if (connection == true) {
-	idTime = setTimeout(hideConnection, 1000);
+	idTime = setTimeout(hideConnection, 4000);
     }
 });
 
@@ -108,8 +108,6 @@ $('#send').click(function () {
 	$("#connectionButton").remove();
 	$("#connection").remove();
 	$("#connectionLog").hide(250);
-	//	$("#connectionButton").hide(250);
-	//	$("#connection").hide(250);
 	$("#inscriptionButton").hide(250);
 	$("#inscriptionPage").hide(250);
 	$("#userInfo").html("Bienvenue " + user.username + ".");
