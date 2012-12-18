@@ -51,7 +51,7 @@ $('#connectionButton').click(function () {
 
 $('header').mouseleave(function () {
     if (connection == true) {
-	idTime = setTimeout(hideConnection, 1000);
+	idTime = setTimeout(hideConnection, 4000);
     }
 });
 
