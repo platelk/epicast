@@ -40,7 +40,6 @@ header
 header #logo
 {
 	position : absolute;
-
 	top : -100%;
 	left : 1%;
 	color : #aaaaaa;
@@ -56,13 +55,18 @@ header #epi, header #cast
 header #epi
 {
 	font-size: 90%;
-	color : #2099ff;
+	color : #04859D;
+	margin: 0;
+	padding:0;
 }
 
 header #cast
 {
+	margin: 0;
+	padding:0;
+	font-size: 90%;
 	font-style: italic;
-	font-family: serif;
+
 	color : #ffffff;
 }
 
@@ -71,15 +75,24 @@ header ul li
 	list-style: none;
 }
 
+input
+{
+    border: none;
+}
+
+input:focus
+{
+    outline:none;
+}
 
 #connection [type="text"]
 {
 	display : inline-block;
 	-webkit-transition: all 0.3s;
 	/*-moz-transition: all 0.3s;*/
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
 	width : 25%;
 }
 
@@ -100,6 +113,7 @@ header ul li
 	display: inline-block;
 	cursor: pointer;
 	background-color: #04859D;
+	color:#F2F2F2;
 	top : 0%;
 	right: 25%;
 	height : 100%;
@@ -134,6 +148,7 @@ header ul li
 	width : 22%;
 	height : 98%;
 	background-color: #048590;
+	color:#fff;
 }
 
 #sign
@@ -160,32 +175,33 @@ header ul li
 	left : 20%;
 }
 
+#connectionBar input
+{
+    height:50%;
+}
+
 #pseudo
 {
 	position : absolute;
-	top : 15%;
+	top : 20%;
 	left : 32%;
 	width : 40%;
-	height : 50%;
 }
 
 #password
 {
 	position : absolute;
-	top : 15%;
+	top : 20%;
 	left : 60%;
 	width : 40%;
-	height : 50%;
 }
 
 #send
 {
 	position : absolute;
-
-	top : 5%;
+	top : 20%;
 	right: 1%;
 	width : 12%;
-	height: 90%;
 	background-color: #666565;
 	border : 0px;
 }
@@ -236,58 +252,69 @@ header ul li
     position : absolute;
     right : 15%;
     top : 10%;
-
     color : #dddddd;
 }
+
 
 #SearchBar
 {
     position : absolute;
     /* display : none; */
-
     top : 10%;
     right : 50%;
-
-    height : 80%;
+    height : 100%;
     width : 30%;
     margin : 0px 0px 0px 0px;
     padding : 0px 0px 0px 0px;
+}
+#SearchBar input
+{
+    margin:0;
+    height : 80%;
 }
 
 #SearchBarButton
 {
     border-style : none;
-    height : 85%;
-    margin : 0px 0px 0px 0px;
-/*    padding : 0px 0px 0px 0px;*/
+    background-color: #04859D;
+    border:none;
+    color: #F2F2F2;
+    float:left;
     -webkit-border-radius : 0px 10px 10px 0px;
     -moz-border-radius : 0px 10px 10px 0px;
 }
 
+
+
 #SearchBarInput
 {
+    padding:0;
+    border:none;
     width : 65%;
-    height : 70%;
-    margin : 0px 0px 0px 0px;
-/*    padding : 0px 0px 0px 0px;*/
-    boder-style : none;
+    padding-top:0;
+    padding-bottom:0;
+    padding-right:0;
+    padding-left: 10px;
+    border-style : none;
+    float:left;
     -webkit-border-radius : 10px 0px 0px 10px;
     -moz-border-radius : 10px 0px 0px 10px;
+}
+
+#SearchBarInput:focus
+{
+    outline:none;
 }
 
 #searchBarLog
 {
     position : absolute;
     display : none;
-
     top : 120%;
     left : 0%;
-
     height : 90%;
     width : 65.5%;
-
     text-align : center;
-
     background-color : #a55134;
 }
 
@@ -295,24 +322,21 @@ header ul li
 {
     position : absolute;
     display : none;
-
     top : 2%;
     right : 30%;
-
     height : 95%;
     width : 15%
 }
 
 #homeButton
 {
+    color: #F2F2F2;
+    font-size: 140%;
     position : absolute;
-
-    height : 90%;
+    height : 100%;
     width : 40%;
-
-    top : 2%;
+    top : 0%;
     left : 0%;
-
     background-color : #04859D;
     border-style : none;
 }
@@ -326,14 +350,13 @@ header ul li
 
 #disconnectButton
 {
+    color: #F2F2F2;
+    font-size: 140%;
     position : absolute;
-
-    height : 90%;
+    height : 100%;
     width : 40%;
-
-    top : 2%;
-    left : 45%;
-
+    top : 0%;
+    left : 40%;
     background-color : #9D0404;
     border-style : none;
 }
