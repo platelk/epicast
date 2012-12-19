@@ -11,16 +11,17 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		if (data.match(/error/gi)) {
-		    $(document).data("json", null);
-		    return (false);
-		} else {
-		    $(document).data("json", $.parseJSON(data));
-		    return (true);
-		}
+	    	if (data.match(/error/gi)) {
+	    	    $(document).data("json", null);
+		    $(document).data("connError", $.parseJSON(data));
+	    	    return (false);
+	    	} else {
+	    	    $(document).data("json", $.parseJSON(data));
+	    	    return (true);
+	    	}
 	    },
 	    false: function(data) {
-		$(document).data("json", null);
+	    	$(document).data("json", null);
 	    }
 	})
 	data = $(document).data("json");
@@ -38,20 +39,20 @@ function Connect()
 	$.ajax({
 	    url : "php/disconnect.php",
 	    async : false
-	})
+	});
+	return (true);
     }
 
-    Connect.prototype.addMsg = function(msg, aim_id, id_parent)
+    Connect.prototype.addMsg = function(message, id_message_channel, id_parent)
     {
 	var data;
 	$.ajax({
 	    url : "php/message.php",
 	    type : "POST",
-	    data : {action : "add", message : msg, aim_id : "" + aim_id, id_parent : id_parent},
+	    data : {action : "add", message : message, id_message_channel : id_message_channel, id_parent : id_parent},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
@@ -68,17 +69,68 @@ function Connect()
 	return (data);
     }
 
-    Connect.prototype.getMsg = function(aim_id, nbr, begin, type)
+    Connect.prototype.getMsg = function(id_message_channel, nbr, begin)
     {
 	var data;
 	$.ajax({
 	    url : "php/message.php",
 	    type : "POST",
-	    data : {action : "get", aim_id : "" + aim_id, nbr : nbr, begin : begin, type : type},
+	    data : {action : "get", id_message_channel : id_message_channel, nbr : nbr, begin : begin},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
+    Connect.prototype.delMsg = function(id)
+    {
+	var data;
+	$.ajax({
+	    url : "php/message.php",
+	    type : "POST",
+	    data : {action : "delete", id : id},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
+    Connect.prototype.createMsg = function(id_message_channel, nbr, begin)
+    {
+	var data;
+	$.ajax({
+	    url : "php/message.php",
+	    type : "POST",
+	    data : {action : "create", id_message_channel : id_message_channel, nbr : nbr, begin : begin},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
@@ -101,7 +153,7 @@ function Connect()
 	$.ajax({
 	    url : "php/add_video.php",
 	    type : "POST",
-	    data : {name : name, description : description, image : image, live : live, video : video, MAX_FILE_SIZE : 100000},
+	    data : {name : name, description : description, image : image, live : live, video : video},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
@@ -122,33 +174,58 @@ function Connect()
 	return (data);
     }
 
-    Connect.prototype.addVideoIn = function (type_req, video_id, container_id) {
+    Connect.prototype.addVideoIn = function (type_req, video_id, container_id, date_begin, data_end, offset) {
 	var data;
 
 	$.ajax({
 	    url : "php/add_video_in.php",
 	    type : "POST",
-	    data : {type : type_req, video_id : video_id, container_id : container_id},
+	    data : {type : type_req, video_id : video_id, container_id : container_id, date_begin : date_begin, date_end : date_end, offset : offset},
 	    dataType : "text",
 	    async : false
-/*	    success: function (data) {
-		if (data.match(/error/gi)) {
+	    /*	    success: function (data) {
+		    if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
-		} else {
+		    } else {
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
-		}
-	    },
-	    false: function(data) {
-		$(document).data("json", null);
-	    }*/
+		    }
+		    },
+		    false: function(data) {
+		    $(document).data("json", null);
+		    }*/
 
 	})
 	//data = $(document).data("json");
 	return (data);
     }
 
+    Connect.prototype.get_user_info_name = function (username) {
+    	var data;
+
+    	$.ajax({
+    	    url : "php/get_user_info_name.php",
+    	    type : "POST",
+    	    data : {username : username},
+    	    dataType : "text",
+    	    async : false,
+    	    success: function (data) {
+    		if (data.match(/error/gi)) {
+    		    $(document).data("json", null);
+    		    return (false);
+    		} else {
+    		    $(document).data("json", $.parseJSON(data));
+    		    return (true);
+    		}
+    	    },
+    	    false: function(data) {
+    		$(document).data("json", null);
+    	    }
+    	})
+    	data = $(document).data("json");
+    	return (data);
+    }
 
     Connect.prototype.getUsrInfoByName = function (name) {
 	var data;
@@ -176,6 +253,32 @@ function Connect()
 	return (data);
     }
 
+    Connect.prototype.create_channel = function (name, description, image, folder_id) {
+	var data;
+
+	$.ajax({
+	    url : "php/create_channel.php",
+	    type : "POST",
+	    data : {name : name, description : description, image : image, folder_id : folder_id},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
     Connect.prototype.create_folder = function (name, description, image, folder_id) {
 	var data;
 
@@ -183,6 +286,33 @@ function Connect()
 	    url : "php/create_folder.php",
 	    type : "POST",
 	    data : {name : name, description : description, image : image, folder_id : folder_id},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
+
+    Connect.prototype.delete = function (type, id) {
+	var data;
+
+	$.ajax({
+	    url : "php/create_delete.php",
+	    type : "POST",
+	    data : {id : id, type : type, },
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
@@ -232,8 +362,6 @@ function Connect()
 
 	$.ajax({
 	    url : "php/get_buffer_zone.php",
-	    type : "POST",
-	    data : {id : id},
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
@@ -364,6 +492,32 @@ function Connect()
 	})
 	data = $(document).data("e");
 	return (data);
+    }
+
+    Connect.prototype.move_sth = function (elm_type, container_id, elm_id, n_pos_x, n_pos_y) {
+    	var data;
+
+    	$.ajax({
+    	    url : "php/move_sth.php",
+    	    type : "POST",
+    	    data : {id : id},
+    	    dataType : "text",
+    	    async : false,
+    	    success: function (data) {
+    		if (data.match(/error/gi)) {
+    		    $(document).data("json", null);
+    		    return (false);
+    		} else {
+    		    $(document).data("json", $.parseJSON(data));
+    		    return (true);
+    		}
+    	    },
+    	    false: function(data) {
+    		$(document).data("json", null);
+    	    }
+    	})
+    	data = $(document).data("e");
+    	return (data);
     }
 };
 

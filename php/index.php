@@ -107,14 +107,13 @@ if (isset($_SESSION['username']))
 			<input type="submit" /><br />
 		</form>
 		<form action="add_video_in.php" method="POST">
-		   folder:add_video_in.php:<br /> 
+		   folder:add_video_in.php:<br />
                         type<input type="text" name="type"/><br />
 		   folder<br />
 		   video_id:<input type="text" name="video_id"/><br />
 		   container_id:<input type="text" name="container_id"/><br />
 		   <input type="submit" /><br />
 		</form>
-		   
 		<form action="add_video_in.php" method="POST">
 		   channel:add_video_in.php:<br />
 		   type<input type="text" name="type"/><br />
@@ -131,4 +130,3 @@ if (isset($_SESSION['username']))
 ?>
 	</body>
 </html>
-

@@ -28,7 +28,7 @@
 	    Sign In
 	  </span>
 	</p>
-	<p>
+	<p id="connectionBar">
 	  <input type="text" name="pseudo" id="pseudo" />
 	  <input type="password" name="password" id="password" />
 	  <input type="button" id="send" value="Ok"/>
@@ -44,7 +44,10 @@
 	  Inscription
 	</p>
       </div>
-      <input type="button" name="" value="Home" id="homeButton"/>
+      <div id="userButton">
+	<input type="button" name="" value="Home" id="homeButton"/>
+	<input type="button" name="" value="Disconnect" id="disconnectButton"/>
+      </div>
       <div id="connectionLog"></div>
       <div id="SearchBar">
 	<input type="text" name="" value="" id="SearchBarInput"/>

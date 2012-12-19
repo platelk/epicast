@@ -29,5 +29,5 @@ if (!isset($_SESSION['id']))
       echo "{\"Error\": \"Bad request\"}";
   }
   else
-    echo "{\"Error\": \"Bad request\"}";
+    echo "{\"Error\": \"Session active\"}";
 ?>

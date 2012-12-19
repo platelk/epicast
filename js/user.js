@@ -58,6 +58,7 @@ function User(username, password, connection) {
 	this.data = array;
 	return true;
     }
+
     User.prototype.disconnect = function() {
 	if (this.online == false || typeof this.online == 'undefined')
 	    return false;

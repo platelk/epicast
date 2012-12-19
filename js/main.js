@@ -2,7 +2,9 @@
 //// Principal Event //
 ///////////////////////
 
-$("#homeButton").hide();
+//$("#homeButton").hide();
+//$("#disconnectButton").hide();
+$("#userButton").hide();
 $("#connectionLog").hide();
 mosaique = new Array();
 var connection = false;
@@ -49,6 +51,11 @@ $('#connectionButton').click(function () {
     }
 });
 
+$('#connectionBar').keypress(function (e) {
+    if (e.which == 13)
+	$("#send").trigger('click');
+});
+
 $('header').mouseleave(function () {
     if (connection == true) {
 	idTime = setTimeout(hideConnection, 4000);
@@ -66,6 +73,23 @@ function hideConnection() {
 	$('#connectionButton').show(200);
     });
 }
+
+$("#disconnectButton").click(function () {
+    var conn = new Connect();
+    conn.disconnect();
+    user.disconnect();
+    $("#connectionButton").show();
+    $("#connection").show();
+    $("#connectionLog").show();
+    $("#inscriptionButton").show();
+    $("#userInfo").html('');
+    $(".Mosaique").remove();
+    $("#userButton").hide();
+    mosaique = new Array();
+    mosaique.push(new Mosaique(undefined, 15, 10));
+    $('#video').append(mosaique[0].html);
+    hideConnection();
+});
 
 $('#SearchBarButton').click(function () {
     var conn = new Connect();
@@ -93,7 +117,14 @@ $('#SearchBarButton').click(function () {
     }
 });
 
+/*
+** Gestion de la connection utilisateur
+*/
+
 $('#send').click(function () {
+    var conn = new Connect();
+    conn.disconnect();
+    user.disconnect();
     var ret = user.connect($("#pseudo").val(), $("#password").val());
     if (ret) {
 	$("#connectionLog").css("background-color", "#048590");
@@ -102,19 +133,24 @@ $('#send').click(function () {
     } else {
 	$("#connectionLog").css("background-color", "#a55134");
 	$("#connectionLog").show(50);
-	$("#connectionLog").html("Connection Error");
+	$("#connectionLog").html("Connection Error : " + $(document).data("connError").Error);
     }
+    setTimeout(function () {$("#connectionLog").hide(500);}, 3000);
     if (user.online) {
-	$("#connectionButton").remove();
-	$("#connection").remove();
-	$("#connectionLog").hide(250);
-	$("#inscriptionButton").hide(250);
-	$("#inscriptionPage").hide(250);
+	$("#connectionButton").hide();
+	$("#connection").hide();
+	$("#connectionLog").hide();
+	$("#inscriptionButton").hide();
+	$("#inscriptionPage").hide();
 	$("#userInfo").html("Bienvenue " + user.username + ".");
 	CreateMosaique(mosaique[0], user.data.folder);
-	$("#homeButton").show();
+	$("#userButton").show();
     }
 });
+
+/*
+** Reviens au Home
+*/
 
 $("#homeButton").click(function () {
     var conn = new Connect();
@@ -137,10 +173,9 @@ $(document).ready(function () {
     resizeHeader();
     resizeInfoText();
 
-    mosaique.push(new Mosaique(undefined, 15, 10));
     // mosaique.push(new Mosaique());
     tab = new Tabs(2, 50);
-
+    mosaique.push(new Mosaique(undefined, 15, 10));
     $('#video').append(mosaique[0].html);
     //$('#video').append(mosaique[1].html);
     //tab.add_tabs(new One_tabs());

@@ -291,16 +291,27 @@ header ul li
     background-color : #a55134;
 }
 
-#homeButton
+#userButton
 {
     position : absolute;
     display : none;
 
-    height : 90%;
-    width : 5%;
-
     top : 2%;
     right : 30%;
+
+    height : 95%;
+    width : 15%
+}
+
+#homeButton
+{
+    position : absolute;
+
+    height : 90%;
+    width : 40%;
+
+    top : 2%;
+    left : 0%;
 
     background-color : #04859D;
     border-style : none;
@@ -309,15 +320,20 @@ header ul li
 
 #homeButton:hover
 {
+    background-color : #04899d;
+    border-style : none;
+}
+
+#disconnectButton
+{
     position : absolute;
-    display : none;
 
     height : 90%;
-    width : 5%;
+    width : 40%;
 
     top : 2%;
-    right : 30%;
+    left : 45%;
 
-    background-color : #04899d;
+    background-color : #9D0404;
     border-style : none;
 }
