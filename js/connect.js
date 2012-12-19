@@ -227,6 +227,33 @@ function Connect()
     	return (data);
     }
 
+    Connect.prototype.dynamicSearch = function (inpt) {
+	var data;
+
+	$.ajax({
+	    url : "php/search.php",
+	    type : "POST",
+	    data : {req : inpt},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+		if (data.match(/error/gi)) {
+		    $(document).data("json", null);
+		    return (false);
+		} else {
+	//	    alert(data);
+		    $(document).data("json", $.parseJSON(data));
+		    return (true);
+		}
+	    },
+	    false: function(data) {
+		$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
     Connect.prototype.getUsrInfoByName = function (name) {
 	var data;
 
