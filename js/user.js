@@ -55,6 +55,7 @@ function User(username, password, connection) {
 	this.age = array.user.age;
 	this.email = array.user.email;
 	this.folders_id = array.user.folders_id;
+	this.id = array.user.id;
 	this.data = array;
 	return true;
     }

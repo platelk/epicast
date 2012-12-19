@@ -3,7 +3,7 @@
 ** made by platel_k
 */
 
-function Tchat(usr, connect, id) {
+function Tchat(usr, connect, id, parent_id) {
     /*
     **-----------------------------
     ** Attribut of Tchat Class
@@ -20,6 +20,7 @@ function Tchat(usr, connect, id) {
     this.usr;
     this.id;
     this.login;
+    this.parent_id;
 
     /*
     **-----------------------------
@@ -39,7 +40,7 @@ function Tchat(usr, connect, id) {
     **-----------------------------
     ** Execute part of Tchat Class
     */
-    if (this.init(usr, connect, id) == true) {
+    if (this.init(usr, connect, id, parent_id) == true) {
 	return (true);
     } else {
 	return (false);
@@ -51,7 +52,7 @@ function Tchat(usr, connect, id) {
 ** Methode declaration of Tchat Class
 */
 
-function tchat_init(usr, connect, id) {
+function tchat_init(usr, connect, id, parent_id) {
 
     if (typeof usr != "undefined") {
 	this.usr = usr
@@ -67,6 +68,7 @@ function tchat_init(usr, connect, id) {
     }
 
     this.id = id;
+    this.parent_id = parent_id;
 
     this.classBox = "tchat"
     this.classSendMessage = "sendMessage"
@@ -81,10 +83,14 @@ function tchat_init(usr, connect, id) {
     this.htmlReceiveMessage.addClass(this.classReceiveMessage);
     this.htmlSendMessage.addClass(this.classSendMessage);
 
+
     this.htmlSendMessage.data("parent", this);
 
     this.htmlBox.append(this.htmlReceiveMessage);
     this.htmlBox.append(this.htmlSendMessage);
+
+    alert(this.recvMsg());
+
     this.htmlSendMessage.load("html/tchat/send.html", function () {
 	$(".sendMessage .submit").click(function () {
 	    var tchat = $(".sendMessage .msgInput").parent().parent().parent().data("parent");
@@ -103,7 +109,7 @@ function tchat_getHtml() {
 }
 
 function tchat_addMsg(msg, login) {
-    if (typeof msg == "undefind") {
+    if (typeof msg == "undefined") {
 	// Return
 	return (false);
     }
@@ -138,12 +144,14 @@ function tchat_setSize(height, width) {
 }
 
 function tchat_sendMsg(msg) {
-    var ret = this.connect.addMsg(msg, this.id, "0");
+    alert("add ->" + msg + ' ' + this.id + ' ' + this.parent_id);
+    var ret = this.connect.addMsg(msg, this.id, this.parent_id);
     alert(ret);
 }
 
 function tchat_recvMsg() {
-    var ret = this.connect.getMsg(this.id, 2000, 1, "video");
+    var ret = this.connect.getMsg(this.id, 2000, 0);
+    this.allMsg = new Array();
     alert(ret);
     return (ret);
 }

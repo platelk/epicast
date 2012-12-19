@@ -328,7 +328,7 @@ function CreateMosaique(mosa, data) {
 	}
     }
     for (i in video) {
-	c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image);
+	c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image, video[i].tchat_id);
 	mosa.addContainer(c);
     }
     setEvent();

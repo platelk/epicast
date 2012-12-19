@@ -17,9 +17,9 @@ if (isset($_POST['action']) && !empty($_POST['action']))
     else if ($_POST['action'] == 'delete' && isset($_SESSION['id']) &&
 	     isset($_POST['id']))
       delete_message($_POST['id']);
-    else if ($_POST['action'] == "get" && 
+    else if ($_POST['action'] == "get" &&
 	     isset($_POST['id_message_channel']) &&
-	     isset($_POST['nbr']) && 
+	     isset($_POST['nbr']) &&
 	     isset($_POST['begin']))
       get_message($_POST['id_message_channel'], $_POST['nbr'], $_POST['begin']);
     /* else if ($_POST['action'] == "create" &&
@@ -28,7 +28,7 @@ if (isset($_POST['action']) && !empty($_POST['action']))
       create_message_channel($_POST['name'], $_POST['description']);
     */
     else
-      echo "{\"Error\": \"Bad request\"}";
+      echo "{\"Error\": \"Bad requests\"}";
   }
 else
   echo "{\"Error\": \"Bad action\"}";
@@ -104,7 +104,7 @@ function get_message($id_message_channel, $nbr, $begin)
 /*
 function create_message_channel($name, $description)
 {
- 
+
   //secu a faire la dessus ---> groupe admin ou droits attribue a chaque pocesseur de video,channel,folder
   $db = new PDO('mysql:host=localhost;dbname=test', 'root', '');
   $prepared = $db->prepare("CALL create_message_channel(:name, :description);");

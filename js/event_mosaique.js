@@ -80,7 +80,7 @@ function setEvent() {
     $('.MosContainer').on({
 	click : function (event, ui) {
 	    var t = new One_tabs();
-	    var tchat = new Tchat(user, new Connect(), $(this).data("me").id);
+	    var tchat = new Tchat(user, new Connect(), $(this).data("me").tchat_id, $(this).data("me").id);
 
 	    var i = tab.add_tabs(t);
 	    t.onglet.icon = "Video";
