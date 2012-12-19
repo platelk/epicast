@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 19 Décembre 2012 à 13:03
+-- Généré le: Mer 19 Décembre 2012 à 15:00
 -- Version du serveur: 5.5.27
 -- Version de PHP: 5.4.7
 
@@ -368,7 +368,7 @@ BEGIN
         AND fc.channels_id = channels.id 
         WHERE users.id = a_user_id;
         
-        SELECT videos.id, videos.live, videos.name, videos.description, videos.image, videos.video, fv.x, fv.y 
+        SELECT videos.id, videos.live, videos.name, videos.description, videos.image, videos.video, fv.x, fv.y, videos.tchat_id 
         FROM folder_video AS fv
         JOIN users 
         JOIN videos 
