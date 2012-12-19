@@ -22,7 +22,7 @@
     z-index : 42;
 }
 
-#addContainerInput
+.addContainerInput
 {
     position : absolute;
     top : 5%;
@@ -44,7 +44,7 @@
     background-color : #04859D;
 }
 
-#addContainerInput input
+.addContainerInput input
 {
     display : inline;
     height : 33px;
@@ -57,14 +57,14 @@
     bottom : 10%;
 }
 
-#addContainerLabel
+.addContainerLabel
 {
     position : absolute;
     top : 5%;
     left : 2%;
 }
 
-#addContainerLabel p
+.addContainerLabel p
 {
     height : 40px;
 }
