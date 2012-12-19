@@ -11,7 +11,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 	    	if (data.match(/error/gi)) {
 	    	    $(document).data("json", null);
 		    $(document).data("connError", $.parseJSON(data));
@@ -47,7 +46,6 @@ function Connect()
     Connect.prototype.addMsg = function(message, id_message_channel, id_parent)
     {
 	var data;
-	alert("alert dans add");
 	$.ajax({
 	    url : "php/message.php",
 	    type : "POST",
@@ -55,7 +53,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert("dans add :" + data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
@@ -75,7 +72,6 @@ function Connect()
     Connect.prototype.getMsg = function(id_message_channel, nbr, begin)
     {
 	var data;
-	alert("alert dans get");
 	$.ajax({
 	    url : "php/message.php",
 	    type : "POST",
@@ -83,7 +79,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert("dans get :" + data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);
@@ -246,7 +241,6 @@ function Connect()
 		    $(document).data("json", null);
 		    return (false);
 		} else {
-	//	    alert(data);
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
 		}
@@ -449,6 +443,7 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
+		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);

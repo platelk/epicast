@@ -41,6 +41,8 @@ function Tchat(usr, connect, id, parent_id) {
     ** Execute part of Tchat Class
     */
     if (this.init(usr, connect, id, parent_id) == true) {
+	this.recvMsg();
+	this.displayMsg(20);
 	return (true);
     } else {
 	return (false);
@@ -88,8 +90,6 @@ function tchat_init(usr, connect, id, parent_id) {
 
     this.htmlBox.append(this.htmlReceiveMessage);
     this.htmlBox.append(this.htmlSendMessage);
-
-    alert(this.recvMsg());
 
     this.htmlSendMessage.load("html/tchat/send.html", function () {
 	$(".sendMessage .submit").click(function () {
@@ -144,15 +144,22 @@ function tchat_setSize(height, width) {
 }
 
 function tchat_sendMsg(msg) {
-    alert("add ->" + msg + ' ' + this.id + ' ' + this.parent_id);
-    var ret = this.connect.addMsg(msg, this.id, this.parent_id);
-    alert(ret);
+    var ret = this.connect.addMsg(msg, this.id, -1);
+    this.displayMsg(10)
 }
 
 function tchat_recvMsg() {
+    alert(this.id);
     var ret = this.connect.getMsg(this.id, 2000, 0);
-    this.allMsg = new Array();
     alert(ret);
+    if (!ret) {
+	return (null);
+    }
+    var msg = ret.messages;
+    this.allMsg = new Array();
+    for (i = 0; msg.length > i; i++) {
+	this.allMsg.push(new Message(msg[i].username, msg[i].content));
+    }
     return (ret);
 }
 
