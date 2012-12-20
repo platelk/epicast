@@ -12,7 +12,7 @@ function User(username, password, connection) {
     this.online = undefined;
     this.folders_id = undefined;
     this.current_folders_id = undefined;
-    this.prev_folders_id = undefined;
+    this.prev_folders_id = new Array();
     this.connection = undefined;
     this.data = false;
 
@@ -72,6 +72,7 @@ function User(username, password, connection) {
 	var ret = this.connection.disconnect();
 	if (ret == false)
 	    return false;
+	this.prev_folders_id = new Array();
 	this.online = false;
 	this.password = undefined;
 	this.firstname = undefined;
@@ -79,6 +80,7 @@ function User(username, password, connection) {
 	this.age = undefined;
 	this.email = undefined;
 	this.folders_id = undefined;
+	this.current_folders_id = undefined;
 	return true;
     }
 

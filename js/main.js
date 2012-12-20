@@ -127,7 +127,7 @@ $('#SearchBar').keyup(function() {
 function goInFolder(folders_id) {
     if (typeof folders_id == "undefined")
 	return (false);
-    user.prev_folders_id = user.current_folders_id;
+    user.prev_folders_id.push(user.current_folders_id);
     user.current_folders_id = folders_id;
     var conn = new Connect();
     $(".Mosaique").remove();
@@ -146,7 +146,8 @@ function goInFolder(folders_id) {
 }
 
 $("#prevButton").click(function () {
-    goInFolder(user.prev_folders_id);
+    goInFolder(user.prev_folders_id.pop());
+    user.prev_folders_id.pop();
 });
 
 $('#SearchBarButton').click(function () {
@@ -233,7 +234,9 @@ $(document).ready(function () {
     $('#video').append(mosaique[0].html);
     //$('#video').append(mosaique[1].html);
     //tab.add_tabs(new One_tabs());
-    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
+//    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlus('+', 'plus')));
+    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlusUp('+', 'plus')));
+    tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletPlusDown('+', 'plus')));
     tab.addTabsSpecial(new One_tabs(undefined, undefined, new OngletMoin('-', 'moins')));
     tab.displayAll();
     $('#tabs').tabs();
@@ -247,4 +250,5 @@ $(document).ready(function () {
 	user.initValue(ret);
 	connectionUser(ret);
     }
+    $("addContainerTab").tabs();
 });

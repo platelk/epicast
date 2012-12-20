@@ -315,6 +315,17 @@ li#homeButton
 	left : 5%;
 }
 
+.videoPlayer
+{
+    position : absolute;
+
+    top : 2%;
+    left : 4%;
+
+    width : 60%;
+    height : 95%;
+}
+
 .miniature
 {
 	position : absolute;

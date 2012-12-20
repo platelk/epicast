@@ -1,3 +1,21 @@
+function clone(srcInstance)
+{
+    /*Si l'instance source n'est pas un objet ou qu'elle ne vaut rien c'est une feuille donc on la retourne*/
+    if(typeof(srcInstance) != 'object' || srcInstance == null)
+	{
+	    return srcInstance;
+	    }
+    /*On appel le constructeur de l'instance source pour cr?e une nouvelle instance de la m?me classe*/
+    var newInstance = new srcInstance.constructor();
+    /*On parcourt les propri?t?s de l'objet et on les recopies dans la nouvelle instance*/
+    for(var i in srcInstance)
+	{
+	    newInstance[i] = clone(srcInstance[i]);
+	    }
+    /*On retourne la nouvelle instance*/
+    return newInstance;
+}
+
 function Container(id, name, description, link, x, y) {
     // Attribut definissant les class/id css
     this.containerClass;
@@ -131,7 +149,8 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
     this.tchat_id = tchat_id;
 
     // Heritage
-    Container.call(this);     if ( typeof Video.initialized == 'undefined' ) {
+    Container.call(this);
+    if ( typeof Video.initialized == 'undefined' ) {
 	for (var element in Container.prototype ) {
 	    Video.prototype[element] = Container.prototype[element];
 	}
@@ -142,10 +161,27 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
     /* ------------- */
     // Methode du strean
 
+    Video.prototype.initLinkAndImg = function () {
+	link = clone(this.link);
+	if (link.match(/youtu/gi)) {
+	    var ar = clone(link).split('/');
+	    link = ar[ar.length - 1];
+	    if (link.match(/watch/)) {
+		ar = clone(link).split('=', 1);
+		link = ar[1];
+		alert(link);
+	    }
+	    this.image = "http://img.youtube.com/vi/" + link + "/default.jpg"
+	    link = "http://www.youtube.com/embed/" + link;
+	}
+	this.link = clone(link);
+    }
+
     Video.prototype.displayContent = function () {
-	content = $('<div />');
+	var content = $('<div />');
 	content.addClass("video");
-	content.append('<iframe width="1280" height="768" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
+
+	content.append('<iframe class="videoPlayer" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
 	return (content);
     }
 
@@ -200,6 +236,46 @@ function Folder(id, name, description, link, x, y, image) {
 ** Evenement lier au container
 */
 
+function submitVideo() {
+    var conn = new Connect();
+    var ret = conn.add_video($("#addVideoName").val(), $("#addVideoDes").val(), $("#addVideoImg").val(), $("#addVideoLive").val(),$("#addVideoFil").val());
+    ret = conn.get_buffer_zone();
+    alert("In submit video");
+    if (ret != false) {
+	$("#addContainer").hide("clip", 200)
+	alert("user id "+ user.id);
+	if (parseInt(ret.buffer_zone[ret.buffer_zone.length - 1].user_id) == parseInt(user.id)) {
+	    conn.addVideoIn("folder", ret.buffer_zone[ret.buffer_zone.length - 1].id, user.current_folders_id, 0, 0, 0)
+	}
+	$("#homeButton").trigger('click');
+    }
+}
+
+function submitFolder() {
+    alert();
+    var conn = new Connect();
+    var ret = conn.create_folder($("#addFolderName").val(), $("#addFolderDes").val(), $("#addFolderImg").val(), user.current_folders_id);
+    ret = conn.get_buffer_zone();
+    if (ret != false) {
+	$("#addContainer").hide("clip", 200);
+	$("#homeButton").trigger('click');
+    }
+}
+
+function addContainerPage() {
+    $("#addFolder").hide();
+    $("#addVideo").show();
+    $("#addVideoButton").click(function () {
+	$("#addFolder").hide();
+	$("#addVideo").show();
+    });
+    $("#addFolderButton").click(function () {
+	$("#addVideo").hide();
+	$("#addFolder").show();
+    });
+
+}
+
 function setGrillEvent() {
     $(".grill").hover(function () {
 	var x = $(this).data('x');
@@ -221,18 +297,12 @@ function setGrillEvent() {
 	$("#addContainerMask").click(function () {
 	    $("#addContainer").hide("clip", 200);
 	});
-	$(".addSubmit").click(function () {
-	    var conn = new Connect();
-	    var ret = conn.add_video($("#addVideoName").val(), $("#addVideoDes").val(), $("#addVideoImg").val(), $("#addVideoLive").val(),$("#addVideoFil").val());
-	    ret = conn.get_buffer_zone();
-	    if (ret != false) {
-		$("#addContainer").hide("clip", 200)
-		for (i = 0; i < ret.buffer_zone.length; i++) {
-		    if (parseInt(ret.buffer_zone[i].user_id) == parseInt(user.id))
-			conn.addVideoIn("folder", ret.buffer_zone[i].id, user.current_folders_id, 0, 0, 0)
-		}
-		$("#homeButton").trigger('click');
-	    }
+	$("#addSubmitVideo").click(function () {
+	    submitVideo();
 	});
+	$("#addSubmitFolder").click(function () {
+	    submitFolder();
+	});
+	addContainerPage();
     });
 }
