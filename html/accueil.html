@@ -13,49 +13,33 @@
   <body>
     <header>
       <div id="logo">
-	<span id="epi">
-	  Epi
-	</span>
-	<span id="cast">
-	  <p>Cast</p>
-	</span>
+	<span id="epi">Kwam</span>
+	<span id="cast">TV</span>
       </div>
       <div id="userInfo">
       </div>
-      <div id="connection" action="">
-	<p id="sign">
-	  <span>
-	    Sign In
-	  </span>
-	</p>
+      <ul id="menu">
+	<li id="deco_menu"></li>
+	<li id="connectionButton">connection</li>
+	<li id="inscriptionButton">inscription</li>
+	<li id="homeButton">home</li>
+	<li id="disconnectButton">disconnect</li>
+	<li id="SearchBar">
+	    <input type="text" name="" value="" id="SearchBarInput"/>
+	    <input type="button" name="" value="" id="SearchBarButton"/>
+	    <div id="searchBarLog">	</div>
+	</li>
+      </ul>
+      <div id="connectionLog"></div>
+    </header>
+    <div id="connection" action="">
 	<p id="connectionBar">
-	  <input type="text" name="pseudo" id="pseudo" />
-	  <input type="password" name="password" id="password" />
+	  <label for="pseudo" id="sign">sign in</label>
+	  <input type="text" value="username" name="pseudo" id="pseudo" />
+	  <input type="password" value="plop" name="password" id="password" />
 	  <input type="button" id="send" value="Ok"/>
 	</p>
       </div>
-      <div id="connectionButton">
-	<p id="connectionText" >
-	  Connection
-	</p>
-      </div>
-      <div id="inscriptionButton">
-	<p id="inscriptionText">
-	  Inscription
-	</p>
-      </div>
-      <div id="userButton">
-	<input type="button" name="" value="Home" id="homeButton"/>
-	<input type="button" name="" value="Disconnect" id="disconnectButton"/>
-	<input type="button" name="" value="<-" id="prevButton"/>
-      </div>
-      <div id="connectionLog"></div>
-      <div id="SearchBar">
-	<input type="text" name="" value="" id="SearchBarInput"/>
-	<input type="button" name="" value="Search" id="SearchBarButton"/>
-	<div id="searchBarLog">	</div>
-      </div>
-    </header>
     <section id="video">
     </section>
     <section id="tabs">

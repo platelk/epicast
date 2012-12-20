@@ -44,10 +44,11 @@ $(window).resize(function () {
 
 $('#connectionButton').click(function () {
     if (connection == false) {
-	$('#connectionButton').hide(200, function () {
-	    connection = true;
-	    $('#connection').show(200);
-	});
+	connection = true;
+	$('#connection').show(200);
+    }
+    else {
+	hideConnection();
     }
 });
 
@@ -84,7 +85,8 @@ $("#disconnectButton").click(function () {
     $("#connectionLog").show();
     $("#inscriptionButton").show();
     $("#userInfo").html('');
-    $("#userButton").hide();
+    $("#disconnectButton").hide();
+    $("#homeButton").hide();
     $(".Mosaique").remove();
     mosaique = new Array();
     mosaique.push(new Mosaique(undefined, 15, 10));
@@ -184,7 +186,8 @@ function connectionUser(ret) {
 	$("#inscriptionPage").hide();
 	$("#userInfo").html("Bienvenue " + user.username + ".");
 	CreateMosaique(mosaique[0], user.data.folder);
-	$("#userButton").show();
+	$("#disconnectButton").show();
+	$("#homeButton").show();
 	$('header').off();
     }
 }

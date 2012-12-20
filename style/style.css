@@ -40,7 +40,7 @@ header
 header #logo
 {
 	position : absolute;
-	top : -100%;
+	top : 0%;
 	left : 1%;
 	color : #aaaaaa;
 	margin : 0px 0px 0px 0px;
@@ -49,24 +49,21 @@ header #logo
 
 header #epi, header #cast
 {
-	display : inline-block;
+    
 }
 
 header #epi
 {
-	font-size: 90%;
-	color : #04859D;
-	margin: 0;
-	padding:0;
+    color : #04859D;
+    margin: 0;
+    padding:0;
+    letter-spacing: -5px;
 }
 
 header #cast
 {
-	margin: 0;
+	margin: -10%;
 	padding:0;
-	font-size: 90%;
-	font-style: italic;
-
 	color : #ffffff;
 }
 
@@ -107,17 +104,131 @@ input:focus
 	width : 25%;
 }
 
+#menu
+{
+    margin:0;
+    padding:0;
+    width: 50%;
+    height:100%;
+    float:right;
+}
+
+#menu li
+{
+    display: block;
+    height:100%;
+    float:left;
+    text-align:center;
+    border-right: 1px solid #333;
+}
+
+li#deco_menu
+{
+    border: none;
+}
+
+#deco_menu
+{
+    width:5%;
+    background-color: #04859D;
+    -webkit-border-radius : 10px 0px 0px 10px;
+    -moz-border-radius : 10px 0px 0px 10px;
+}
+
+#inscriptionButton
+{
+    line-height: 150%;
+    cursor: pointer;
+    color:#F2F2F2;
+    background-color: #9C2D2D;
+    width : 19%;
+}
+
+
 #connectionButton
 {
-	position : absolute;
-	display: inline-block;
-	cursor: pointer;
-	background-color: #04859D;
-	color:#F2F2F2;
-	top : 0%;
-	right: 25%;
-	height : 100%;
-	width : 10%;
+    line-height: 150%;
+    cursor: pointer;
+    background-color: #04859D;
+    color:#F2F2F2;
+    width : 19%;
+}
+
+li#SearchBar
+{
+    border: none;
+}
+#SearchBar
+{
+    height : 100%;
+    width : 55%;
+}
+
+#SearchBar input
+{
+    display:block;
+    height:100%;
+    margin:0;
+    padding:0;
+    
+}
+
+li#disconnectButton
+{
+    cursor: pointer;
+    color:#F2F2F2;
+    background-color: #04859D;
+    width : 19%;
+    display:none;
+}
+
+li#homeButton
+{
+    cursor: pointer;
+    color:#F2F2F2;
+    background-color: #04859D;
+    width : 19%;
+    display:none;
+}
+
+#homeButton:hover
+{
+    background-color : #04899d;
+}
+
+#SearchBarButton
+{
+    cursor: pointer;
+    display:block;
+    height:100%;
+    background-color: #04859D;
+    background-image: url('../img/search.png');
+    background-position: 50% 50%;
+    background-repeat:no-repeat;
+    border:none;
+    color: #F2F2F2;
+    float:left;
+    width:10%;    
+    -webkit-border-radius : 0px 10px 10px 0px;
+    -moz-border-radius : 0px 10px 10px 0px;
+}
+
+#SearchBarInput
+{
+    float:left;
+    height:100%;
+    padding:0;
+    border:none;
+    width : 70%;
+    padding-top:0;
+    padding-bottom:0;
+    padding-right:0;
+    padding-left: 10px;
+}
+
+#SearchBarInput:focus
+{
+    outline:none;
 }
 
 .imgAdd
@@ -130,49 +241,30 @@ input:focus
     height : 100%;
 }
 
-#connectionText
-{
-    position : absolute;
-    display : inline-block;
-
-    top : -40%;
-    left : 10%;
-}
-
 #connection
 {
 	display : none;
 	position : absolute;
-	top : 0%;
+	top : 4.5%;
 	right : 25%;
 	width : 22%;
-	height : 98%;
+	height : 5%;
 	background-color: #048590;
 	color:#fff;
+	-webkit-border-radius : 0px 0px 10px 10px;
+	-moz-border-radius : 0px 0px 10px 10px;
 }
 
 #sign
 {
-	position : absolute;
-
-	background-color: #04859D;
-	/*top : -27%;*/
-	left : 0%;
-	width : 30%;
-	height : 60%;
-
-	font-family: sans-serif;
-	font-weight: bold;
-	color : #eeeeee;
-	text-align: center;
-}
-
-#sign span
-{
-	position : absolute;
-
-	top : -20%;
-	left : 20%;
+    display:block;
+    float:left;
+    margin:0%;
+    margin-left: 5%;
+    background-color: #04859D;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
 }
 
 #connectionBar input
@@ -182,10 +274,10 @@ input:focus
 
 #pseudo
 {
-	position : absolute;
-	top : 20%;
-	left : 32%;
-	width : 40%;
+    position : absolute;
+    top : 20%;
+    left : 32%;
+    width : 40%;
 }
 
 #password
@@ -202,13 +294,15 @@ input:focus
 	top : 20%;
 	right: 1%;
 	width : 12%;
-	background-color: #666565;
-	border : 0px;
+	background-color: #9C2D2D;
+	border : none;
+	color : #fff;
+    
 }
 
 #send:hover
 {
-	background-color: #556565;
+	background-color: #9C2D20;
 }
 
 #video
@@ -219,7 +313,6 @@ input:focus
 
 	top : 9%;
 	left : 5%;
-	/*float : left;*/
 }
 
 .miniature
@@ -255,57 +348,6 @@ input:focus
     color : #dddddd;
 }
 
-
-#SearchBar
-{
-    position : absolute;
-    /* display : none; */
-    top : 10%;
-    right : 50%;
-    height : 100%;
-    width : 30%;
-    margin : 0px 0px 0px 0px;
-    padding : 0px 0px 0px 0px;
-}
-#SearchBar input
-{
-    margin:0;
-    height : 80%;
-}
-
-#SearchBarButton
-{
-    border-style : none;
-    background-color: #04859D;
-    border:none;
-    color: #F2F2F2;
-    float:left;
-    -webkit-border-radius : 0px 10px 10px 0px;
-    -moz-border-radius : 0px 10px 10px 0px;
-}
-
-
-
-#SearchBarInput
-{
-    padding:0;
-    border:none;
-    width : 65%;
-    padding-top:0;
-    padding-bottom:0;
-    padding-right:0;
-    padding-left: 10px;
-    border-style : none;
-    float:left;
-    -webkit-border-radius : 10px 0px 0px 10px;
-    -moz-border-radius : 10px 0px 0px 10px;
-}
-
-#SearchBarInput:focus
-{
-    outline:none;
-}
-
 #searchBarLog
 {
     position : absolute;
@@ -318,48 +360,6 @@ input:focus
     background-color : #a55134;
 }
 
-#userButton
-{
-    position : absolute;
-    display : none;
-    top : 2%;
-    right : 30%;
-    height : 95%;
-    width : 26%
-}
-
-#homeButton
-{
-    color: #F2F2F2;
-    font-size: 140%;
-    position : absolute;
-    height : 100%;
-    width : 30%;
-    top : 0%;
-    left : 0%;
-    background-color : #04859D;
-    border-style : none;
-}
-
-
-#homeButton:hover
-{
-    background-color : #04899d;
-    border-style : none;
-}
-
-#disconnectButton
-{
-    color: #F2F2F2;
-    font-size: 140%;
-    position : absolute;
-    height : 100%;
-    width : 30%;
-    top : 0%;
-    left : 32%;
-    background-color : #9D0404;
-    border-style : none;
-}
 
 
 #prevButton
