@@ -579,8 +579,6 @@ function Connect()
 
   var co = new Connect();
   tab = co.connection("plop42", "plop42");
-  alert("lol " + tab.user.id);
   /*	var lol = co.disconnect(tab.user.id);
   var video = co.add_video("video", "belle video", "toto.jpg", "toto.avi", "plop42", "plop42");
-  alert(video);
   })*/;

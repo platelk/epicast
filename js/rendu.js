@@ -267,7 +267,6 @@ function setEvent() {
     $('.MosContainer').droppable({
 	drop : function (event, ui) {
 	    if (ui.draggable.data('parent').checkPlace(ui.draggable.data('important'), $(this).data('x'), $(this).data('y'), ui.draggable.data('id'))) {
-		alert("lol");
 		var x = $(this).data('x');
 		var y = $(this).data('y');
 		var id = parseInt($(this).data('id'));

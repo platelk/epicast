@@ -2,8 +2,6 @@
 //// Principal Event //
 ///////////////////////
 
-//$("#homeButton").hide();
-//$("#disconnectButton").hide();
 $("#userButton").hide();
 $("#connectionLog").hide();
 mosaique = new Array();
