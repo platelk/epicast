@@ -1,49 +1,14 @@
-/*$(function(inpt) {
-
-  });
-  $(document).ready( function() {
-  $('#SearchBarInput').keyup( function(){
-  $field = $(this);
-  $('#results').html('');
-  $('#ajax-loader').remove();
-
-  if( $field.val().length > 1 )
-  {
-  $.ajax({
-  url : 'php/search.php',
-  type : 'POST',
-  data : {req : $field.val()},
-  dataType : 'text',
-  async : false,
-  /*		beforeSend : function() {
-  $field.after('<img src="img/ajax_loader.gif" alt="loader" id="ajax-loader" />');
-  },
-  success : function(data){
-  data = $.parseJSON(data);
-  var tab = [];
-  for (var i = 0; data.length > i; i++)
-  tab.push(data[i].users);
-  $( "#SearchBarInput" ).autocomplete({
-  source: tab
-  });
-  }
-  });
-  }
-  });
-  });*/
-
 var	pos = 0;
 var	old_in = undefined;
 
-function search_result(ret, i, pos) {
-    var newdiv = $('<div class="resultSearch" id="divSearch'+i+'">'+ret+'<span class=desc>('+'users'+')</span></div>');
+function search_dyn_result(ret, i, pos) {
+    var newdiv = $('<div class="resultSearch" id="divSearch'+i+'">'+ret+/*'<span class=desc>('+'users'+')</span>*/'</div>');
     $('#SearchBar').append(newdiv);
     $('.desc').css('color', '#BABABA');
     $('.desc').css('position', 'absolute');
     $('.desc').css('text-align', 'right');
     $('.desc').css('text-align', 'right');
     $('.desc').css('width', $('#SearchBarInput').width()+'px');
-
     if (i != pos)
 	$('#divSearch'+i).css('background-color','#B0B0B0');
     else
@@ -60,7 +25,6 @@ $('#SearchBar').keyup(function(e) {
     var ret = conn.dynamicSearch(inpt);
     for (var l = 0; tab[l]; l++)
     {
-//	alert(tab[l]);
 	if (e.keyCode == 13 || inpt != '' || (e.keyCode >= 38 && e.keyCode <= 41))
 	{
 	    if (old_in == undefined)
@@ -100,7 +64,7 @@ $('#SearchBar').keyup(function(e) {
 		for (var i = 0; ret.length > i;i++)
 		{
 		    $('#divSearch'+i).remove();
-		    search_result(ret[i][tab[l]], i, pos);
+		    search_dyn_result(ret[i][tab[l]], i, pos);
 		}
 	    }
 	}
