@@ -222,6 +222,17 @@ input:focus
 	/*float : left;*/
 }
 
+.videoPlayer
+{
+    position : absolute;
+
+    top : 2%;
+    left : 4%;
+
+    width : 60%;
+    height : 95%;
+}
+
 .miniature
 {
 	position : absolute;

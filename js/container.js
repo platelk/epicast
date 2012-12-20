@@ -161,16 +161,27 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
     /* ------------- */
     // Methode du strean
 
+    Video.prototype.initLinkAndImg = function () {
+	link = clone(this.link);
+	if (link.match(/youtu/gi)) {
+	    var ar = clone(link).split('/');
+	    link = ar[ar.length - 1];
+	    if (link.match(/watch/)) {
+		ar = clone(link).split('=', 1);
+		link = ar[1];
+		alert(link);
+	    }
+	    this.image = "http://img.youtube.com/vi/" + link + "/default.jpg"
+	    link = "http://www.youtube.com/embed/" + link;
+	}
+	this.link = clone(link);
+    }
+
     Video.prototype.displayContent = function () {
 	var content = $('<div />');
 	content.addClass("video");
-	link = clone(this.link);
-	if (link.match(/youtu/gi)) {
-	    var tab = clone(link).split('/');
-	    link = tab[tab.length - 1];
-	    link = "http://www.youtube.com/embed/" + link;
-	}
-	content.append('<iframe width="1280" height="768" src="' + link + '" frameborder="0" allowfullscreen></iframe>')
+
+	content.append('<iframe class="videoPlayer" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
 	return (content);
     }
 
