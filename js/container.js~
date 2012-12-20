@@ -161,7 +161,9 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
     /* ------------- */
     // Methode du strean
 
-    Video.prototype.initLinkAndImg = function () {
+    Video.prototype.displayContent = function () {
+	var content = $('<div />');
+	content.addClass("video");
 	link = clone(this.link);
 	if (link.match(/youtu/gi)) {
 	    var ar = clone(link).split('/');
@@ -171,23 +173,14 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
 		link = ar[1];
 		alert(link);
 	    }
-	    this.image = "http://img.youtube.com/vi/" + link + "/default.jpg"
 	    link = "http://www.youtube.com/embed/" + link;
 	}
-	this.link = clone(link);
-    }
-
-    Video.prototype.displayContent = function () {
-	var content = $('<div />');
-	content.addClass("video");
-
-	content.append('<iframe class="videoPlayer" src="' + this.link + '" frameborder="0" allowfullscreen></iframe>')
+	content.append('<iframe class="videoPlayer" src="' + link + '" frameborder="0" allowfullscreen></iframe>')
 	return (content);
     }
 
     this.init = function (id, name, description, link, x, y, image) {
 	this.initContainer(id, name, description, link, x, y);
-	this.initLinkAndImg();
 	this.html.addClass(this.streamClass);
 	this.html.data('link', this.link);
 	this.html.data('name', this.name);
