@@ -103,7 +103,7 @@ function search_result(ret, i) {
     $('.resultSearch').css('border','solid 1px');
 };
 
-$('#SearchBar').keyup(function() {
+/*$('#SearchBar').keyup(function() {
     var conn = new Connect();
     var inpt = $("#SearchBarInput").val();
     if (inpt != '')
@@ -121,6 +121,35 @@ $('#SearchBar').keyup(function() {
     }
     else
 	$('.resultSearch').remove();
+});*/
+function connect_to_user(name) {
+    var conn = new Connect();
+
+    var ret = conn.getUsrInfoByName(name);
+
+    if (ret) {
+	var conn = new Connect();
+	$(".Mosaique").remove();
+	mosaique = new Array();
+	var data = conn.get_folder(ret.folders_id);
+	mosaique.push(new Mosaique(undefined, 15, 10));
+	CreateMosaique(mosaique[0], data);
+        $("#video").append(mosaique[0].html);
+	mosaique[0].displayName($("#SearchBarInput").val());
+        placeMosaique(mosaique);
+        setEvent();
+	resizeHeader();
+        $(window).trigger('resize');
+    }
+    else {
+        $("#searchBarLog").show();
+        $("#searchBarLog").html("No result matches.");
+	setTimeout(function () {$("#searchBarLog").hide();}, 3000);
+    }
+}
+
+$('#SearchBarButton').click(function () {
+    connect_to_user($("#SearchBarInput").val());
 });
 
 
