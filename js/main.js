@@ -104,7 +104,6 @@ function search_result(ret, i) {
 $('#SearchBar').keyup(function() {
     var conn = new Connect();
     var inpt = $("#SearchBarInput").val();
-    //    alert ($("#SearchBarInput").text.lenght);
     if (inpt != '')
     {
 	var ret = new Array();
@@ -122,27 +121,40 @@ $('#SearchBar').keyup(function() {
 	$('.resultSearch').remove();
 });
 
+
+function goInFolder(folders_id) {
+    if (typeof folders_id == "undefined")
+	return (false);
+    user.prev_folders_id = user.current_folders_id;
+    user.current_folders_id = folders_id;
+    var conn = new Connect();
+    $(".Mosaique").remove();
+    mosaique = new Array();
+    var data = conn.get_folder(user.current_folders_id);
+
+    mosaique.push(new Mosaique(undefined, 15, 10));
+    CreateMosaique(mosaique[0], data);
+    $("#video").append(mosaique[0].html);
+    mosaique[0].displayName($("#SearchBarInput").val());
+    placeMosaique(mosaique);
+    setEvent();
+    resizeHeader();
+    //	resizeInfoText();
+    $(window).trigger('resize');
+}
+
+$("#prevButton").click(function () {
+    goInFolder(user.prev_folders_id);
+});
+
 $('#SearchBarButton').click(function () {
     var conn = new Connect();
 
     var ret = conn.getUsrInfoByName($("#SearchBarInput").val());
 
     if (ret) {
-	var conn = new Connect();
-	$(".Mosaique").remove();
-	mosaique = new Array();
-	var data = conn.get_folder(ret.folders_id);
-
-	mosaique.push(new Mosaique(undefined, 15, 10));
-	CreateMosaique(mosaique[0], data);
-	$("#video").append(mosaique[0].html);
-	mosaique[0].displayName($("#SearchBarInput").val());
-	placeMosaique(mosaique);
-	setEvent();
-	resizeHeader();
-	//	resizeInfoText();
-	$(window).trigger('resize');
-    } else {
+	goInFolder(ret.folders_id);
+   } else {
 	$("#searchBarLog").show();
 	$("#searchBarLog").html("No result matches.");
 	setTimeout(function () {$("#searchBarLog").hide();}, 3000);
@@ -153,11 +165,7 @@ $('#SearchBarButton').click(function () {
 ** Gestion de la connection utilisateur
 */
 
-$('#send').click(function () {
-    var conn = new Connect();
-    conn.disconnect();
-    user.disconnect();
-    var ret = user.connect($("#pseudo").val(), $("#password").val());
+function connectionUser(ret) {
     if (ret) {
 	$("#connectionLog").css("background-color", "#048590");
 	$("#connectionLog").show(50);
@@ -179,6 +187,15 @@ $('#send').click(function () {
 	$("#userButton").show();
 	$('header').off();
     }
+}
+
+$('#send').click(function () {
+    var conn = new Connect();
+    conn.disconnect();
+    user.disconnect();
+    var ret = user.connect($("#pseudo").val(), $("#password").val());
+
+    connectionUser(ret);
 });
 
 /*
@@ -203,6 +220,7 @@ $("#homeButton").click(function () {
 });
 
 $(document).ready(function () {
+    var conn = new Connect();
     resizeHeader();
     resizeInfoText();
 
@@ -221,4 +239,9 @@ $(document).ready(function () {
     setEvent();
     $(window).trigger('resize');
     inscription();
+    ret = conn.refresh();
+    if (ret) {
+	user.initValue(ret);
+	connectionUser(ret);
+    }
 });

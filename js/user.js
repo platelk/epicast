@@ -11,6 +11,8 @@ function User(username, password, connection) {
     this.password = undefined;
     this.online = undefined;
     this.folders_id = undefined;
+    this.current_folders_id = undefined;
+    this.prev_folders_id = undefined;
     this.connection = undefined;
     this.data = false;
 
@@ -44,7 +46,10 @@ function User(username, password, connection) {
 	if (typeof pass == 'undefined')
 	    return false;
 	var array = this.connection.connection(username, password);
+	return (this.initValue(array));
+    }
 
+    User.prototype.initValue = function (array) {
 	if (array == null || typeof array.user == 'undefined')
 	    return false;
 	this.online = true;
@@ -56,6 +61,7 @@ function User(username, password, connection) {
 	this.email = array.user.email;
 	this.folders_id = array.user.folders_id;
 	this.id = array.user.id;
+	this.current_folders_id = this.folders_id;
 	this.data = array;
 	return true;
     }

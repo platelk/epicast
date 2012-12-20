@@ -325,7 +325,7 @@ input:focus
     top : 2%;
     right : 30%;
     height : 95%;
-    width : 15%
+    width : 26%
 }
 
 #homeButton
@@ -334,7 +334,7 @@ input:focus
     font-size: 140%;
     position : absolute;
     height : 100%;
-    width : 40%;
+    width : 30%;
     top : 0%;
     left : 0%;
     background-color : #04859D;
@@ -354,9 +354,23 @@ input:focus
     font-size: 140%;
     position : absolute;
     height : 100%;
-    width : 40%;
+    width : 30%;
     top : 0%;
-    left : 40%;
+    left : 32%;
+    background-color : #9D0404;
+    border-style : none;
+}
+
+
+#prevButton
+{
+    color: #F2F2F2;
+    font-size: 140%;
+    position : absolute;
+    height : 100%;
+    width : 30%;
+    top : 0%;
+    left : 64%;
     background-color : #9D0404;
     border-style : none;
 }

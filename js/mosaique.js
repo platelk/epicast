@@ -100,7 +100,6 @@ function Mosaique(mosaiqueClass, nbCellByLine, nbLine) {
 	    }
 	    str += '\n';
 	}
-	alert(str);
     }
 
     Mosaique.prototype.resetMap = function () {
@@ -320,16 +319,23 @@ function CreateMosaique(mosa, data) {
     mosa.init();
     var c;
 
-    video  = data.videos;
-    if (typeof video == "undefined") {
-	video = data.videos;
+    if (data) {
+	video  = data.videos;
 	if (typeof video == "undefined") {
-	    return (false);
+	    video = data.videos;
+	    if (typeof video == "undefined") {
+		return (false);
+	    }
 	}
-    }
-    for (i in video) {
-	c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image, video[i].tchat_id);
-	mosa.addContainer(c);
+	for (i in video) {
+	    c = new Video(video[i].id, video[i].name, video[i].description, video[i].video, video[i].x, video[i].y, video[i].image, video[i].tchat_id);
+	    mosa.addContainer(c);
+	}
+	folder = data.folders;
+	for (i in folder) {
+	    c = new Folder(folder[i].id, folder[i].name, folder[i].description, folder[i].folder, folder[i].x, folder[i].y, folder[i].image);
+	    mosa.addContainer(c);
+	}
     }
     setEvent();
     $(window).trigger('resize');

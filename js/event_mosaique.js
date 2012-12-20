@@ -77,7 +77,7 @@ function setEvent() {
 	    }
 	}
     });
-    $('.MosContainer').on({
+    $('.videoClass, .streamClass').on({
 	click : function (event, ui) {
 	    var t = new One_tabs();
 	    alert("->" + $(this).data("me").tchat_id)
@@ -92,5 +92,8 @@ function setEvent() {
 	    tchat.setPos("70%", "10%");
 	    tchat.setSize("80%", "28%");
 	}
+    });
+    $('.folderClass').click(function () {
+	goInFolder($(this).data("me").id);
     });
 }

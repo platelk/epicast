@@ -28,6 +28,34 @@ function Connect()
 	return (data);
     }
 
+
+    Connect.prototype.refresh = function()
+    {
+	var data;
+	$.ajax({
+	    url : "php/refresh.php",
+	    type : "POST",
+	    data : {},
+	    dataType : "text",
+	    async : false,
+	    success: function (data) {
+	    	if (data.match(/error/gi)) {
+	    	    $(document).data("json", null);
+		    $(document).data("connError", $.parseJSON(data));
+	    	    return (false);
+	    	} else {
+	    	    $(document).data("json", $.parseJSON(data));
+	    	    return (true);
+	    	}
+	    },
+	    false: function(data) {
+	    	$(document).data("json", null);
+	    }
+	})
+	data = $(document).data("json");
+	return (data);
+    }
+
     /*
     ** recupere le data de getJson et verifie la validite des donnes (si ozouf renvoie une erreur ou pas)
     ** renvoie False si il y a une erreur sinon True
@@ -174,7 +202,7 @@ function Connect()
 	return (data);
     }
 
-    Connect.prototype.addVideoIn = function (type_req, video_id, container_id, date_begin, data_end, offset) {
+    Connect.prototype.addVideoIn = function (type_req, video_id, container_id, date_begin, date_end, offset) {
 	var data;
 
 	$.ajax({
@@ -443,7 +471,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);

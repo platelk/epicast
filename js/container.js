@@ -28,7 +28,7 @@ function Container(id, name, description, link, x, y) {
 	this.info.append(description);
 	this.info.addClass('videoInfo');
 	this.html.append(this.info);
-	this.id = parseInt(id);
+	this.id = id;
 	this.important = 2;
 	this.html.data('important', 2);
 	if (typeof x == "undefined") {
@@ -164,15 +164,11 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
     this.init(id, name, description, link, x, y, image);
 }
 
-function Folder(link) {
-
-
+function Folder(id, name, description, link, x, y, image) {
 
     // Attribut definissant les class/id
     this.streamClass = 'folderClass';
     // Attribut definissant les class/id
-    this.link = link;
-
     // HeritageVideo
     Container.call(this); // Cf Heritage par le constructeur de la classe mere
     if ( typeof Folder.initialized == 'undefined' ) {
@@ -187,15 +183,17 @@ function Folder(link) {
 
     /* ------------- */
     // Methode du strean
-
-    this.init = function () {
-	this.initContainer();
+    this.init = function (id, name, description, link, x, y, image) {
+	this.initContainer(id, name, description, undefined, x, y);
 	this.html.addClass(this.streamClass);
+	this.html.data('link', this.link);
+	this.html.data('name', this.name);
+	this.setInfoContent(this.infoContent);
     }
 
     /* ----- */
     // Run init()
-    this.init();
+    this.init(id, name, description, link, x, y, image);
 }
 
 /* -------------------------------------
@@ -228,10 +226,10 @@ function setGrillEvent() {
 	    var ret = conn.add_video($("#addVideoName").val(), $("#addVideoDes").val(), $("#addVideoImg").val(), $("#addVideoLive").val(),$("#addVideoFil").val());
 	    ret = conn.get_buffer_zone();
 	    if (ret != false) {
-		$("#addContainer").hide("clip", 200);
+		$("#addContainer").hide("clip", 200)
 		for (i = 0; i < ret.buffer_zone.length; i++) {
 		    if (parseInt(ret.buffer_zone[i].user_id) == parseInt(user.id))
-			conn.addVideoIn("folder", ret.buffer_zone[i].id, user.folders_id, 0, 0, 0)
+			conn.addVideoIn("folder", ret.buffer_zone[i].id, user.current_folders_id, 0, 0, 0)
 		}
 		$("#homeButton").trigger('click');
 	    }
