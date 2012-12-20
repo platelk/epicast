@@ -167,9 +167,8 @@ function Video(id, name, description, link, x, y, image, tchat_id) {
 	    var ar = clone(link).split('/');
 	    link = ar[ar.length - 1];
 	    if (link.match(/watch/)) {
-		ar = clone(link).split('=', 1);
+		ar = link.split('=', 2);
 		link = ar[1];
-		alert(link);
 	    }
 	    this.image = "http://img.youtube.com/vi/" + link + "/default.jpg"
 	    link = "http://www.youtube.com/embed/" + link;
@@ -241,10 +240,8 @@ function submitVideo() {
     var conn = new Connect();
     var ret = conn.add_video($("#addVideoName").val(), $("#addVideoDes").val(), $("#addVideoImg").val(), $("#addVideoLive").val(),$("#addVideoFil").val());
     ret = conn.get_buffer_zone();
-    alert("In submit video");
     if (ret != false) {
 	$("#addContainer").hide("clip", 200)
-	alert("user id "+ user.id);
 	if (parseInt(ret.buffer_zone[ret.buffer_zone.length - 1].user_id) == parseInt(user.id)) {
 	    conn.addVideoIn("folder", ret.buffer_zone[ret.buffer_zone.length - 1].id, user.current_folders_id, 0, 0, 0)
 	}
@@ -253,7 +250,6 @@ function submitVideo() {
 }
 
 function submitFolder() {
-    alert();
     var conn = new Connect();
     var ret = conn.create_folder($("#addFolderName").val(), $("#addFolderDes").val(), $("#addFolderImg").val(), user.current_folders_id);
     ret = conn.get_buffer_zone();

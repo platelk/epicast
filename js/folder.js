@@ -54,6 +54,10 @@ function Tabs(nb_max_onglet)
 	for (var i = 0; this.tabs.length > i; i++) {
 	    this.removeTabs(i);
 	}
+	$(".ui-tabs-panel").remove();
+	$(".onglet").remove();
+	$("#dropdown a").trigger("click");
+	this.displayAll();
     }
 
     Tabs.prototype.add_tabs = function(tabs_to_add)
@@ -246,7 +250,6 @@ function Chat(nb_max_onglet)
 	    {
 		$('#chat').append(tab[k].onglet.display());
 		if (tab[k].tab instanceof Content/* && k == this.onglet_active*/) {
-		    alert('lol');
 		    $('#chat').append(tab[k].tab.display());
 		}
 		if (typeof tab[k].onglet.icon == 'undefined') {

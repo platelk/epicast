@@ -56,7 +56,6 @@ function setEvent() {
     $('.MosContainer').droppable({
 	drop : function (event, ui) {
 	    if (ui.draggable.data('parent').checkPlace(ui.draggable.data('important'), $(this).data('x'), $(this).data('y'), ui.draggable.data('id'))) {
-		alert("lol");
 		var x = $(this).data('x');
 		var y = $(this).data('y');
 		var id = parseInt($(this).data('id'));
@@ -80,7 +79,6 @@ function setEvent() {
     $('.videoClass, .streamClass').on({
 	click : function (event, ui) {
 	    var t = new One_tabs();
-	    alert("->" + $(this).data("me").tchat_id)
 	    var tchat = new Tchat(user, new Connect(), $(this).data("me").tchat_id, $(this).data("me").id);
 
 	    var i = tab.add_tabs(t);
