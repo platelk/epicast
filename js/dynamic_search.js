@@ -1,29 +1,110 @@
-function search_result(ret, i) {
-    delete_divs();
-    var newdiv = $('<div class="resultSearch" >'+ret+'</div>');
+/*$(function(inpt) {
+
+  });
+  $(document).ready( function() {
+  $('#SearchBarInput').keyup( function(){
+  $field = $(this);
+  $('#results').html('');
+  $('#ajax-loader').remove();
+
+  if( $field.val().length > 1 )
+  {
+  $.ajax({
+  url : 'php/search.php',
+  type : 'POST',
+  data : {req : $field.val()},
+  dataType : 'text',
+  async : false,
+  /*		beforeSend : function() {
+  $field.after('<img src="img/ajax_loader.gif" alt="loader" id="ajax-loader" />');
+  },
+  success : function(data){
+  data = $.parseJSON(data);
+  var tab = [];
+  for (var i = 0; data.length > i; i++)
+  tab.push(data[i].users);
+  $( "#SearchBarInput" ).autocomplete({
+  source: tab
+  });
+  }
+  });
+  }
+  });
+  });*/
+
+var	pos = 0;
+var	old_in = undefined;
+
+function search_result(ret, i, pos) {
+    var newdiv = $('<div class="resultSearch" id="divSearch'+i+'">'+ret+'<span class=desc>('+'users'+')</span></div>');
     $('#SearchBar').append(newdiv);
-    $('.resultSearch').css('background-color','#B0B0B0');
+    $('.desc').css('color', '#BABABA');
+    $('.desc').css('position', 'absolute');
+    $('.desc').css('text-align', 'right');
+    $('.desc').css('text-align', 'right');
+    $('.desc').css('width', $('#SearchBarInput').width()+'px');
+
+    if (i != pos)
+	$('#divSearch'+i).css('background-color','#B0B0B0');
+    else
+	$('#divSearch'+i).css('background-color','#1E7FCB');
     $('.resultSearch').css('width',$('#SearchBarInput').width()+3+'px');
     $('.resultSearch').css('border','solid 1px');
 };
 
-$('#SearchBar').keyup(function() {
+$('#SearchBar').keyup(function(e) {
     var conn = new Connect();
     var inpt = $("#SearchBarInput").val();
-    //    alert ($("#SearchBarInput").text.lenght);
-    if (inpt != '')
+
+    var tab = ['users'];
+    var ret = conn.dynamicSearch(inpt);
+    for (var l = 0; tab[l]; l++)
     {
-	var ret = new Array();
-	ret = conn.dynamicSearch(inpt);
+//	alert(tab[l]);
+	if (e.keyCode == 13 || inpt != '' || (e.keyCode >= 38 && e.keyCode <= 41))
 	{
-	    $('.resultSearch').remove();
-	    var i = 0;
-	    while (ret[i]) {
-		search_result(ret[i]['users'], i);
-		i++;
+	    if (old_in == undefined)
+		old_in = inpt;
+	    if (inpt != old_in) {
+		pos = 0;
+		old_in = inpt;
+	    }
+	    else {
+		if (e.keyCode == 38 || e.keyCode == 40)
+		{
+		    if (e.keyCode == 38)
+		    {
+			if (pos == 0)
+			    pos = ret.length - 1;
+			else
+			    pos--;
+		    }
+		    if (e.keyCode == 40)
+		    {
+			if (pos == ret.length - 1)
+			    pos = 0;
+			else
+			    pos++;
+		    }
+		}
+	    }
+	    if (e.keyCode == 13)
+	    {
+		$("#SearchBarInput").val(ret[pos][tab[l]]);
+		connect_to_user($("#SearchBarInput").val());
+		$('.resultSearch').remove();
+	    }
+	    else
+	    {
+		$('.resultSearch').remove();
+		for (var i = 0; ret.length > i;i++)
+		{
+		    $('#divSearch'+i).remove();
+		    search_result(ret[i][tab[l]], i, pos);
+		}
 	    }
 	}
+	else
+	    $('.resultSearch').remove();
     }
-    else
-	$('.resultSearch').remove();
 });
