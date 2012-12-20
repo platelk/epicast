@@ -244,4 +244,5 @@ $(document).ready(function () {
 	user.initValue(ret);
 	connectionUser(ret);
     }
+    $("addContainerTab").tabs();
 });
