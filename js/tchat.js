@@ -43,10 +43,10 @@ function Tchat(usr, connect, id, parent_id) {
     if (this.init(usr, connect, id, parent_id) == true) {
 	this.recvMsg();
 	this.displayMsg(20);
-	$(document).data("tmp", this);
-	setInterval(function () {
-	    $(document).data("tmp").displayMsg(30);
-	}, 500);
+	// $(document).data("tmp", this);
+	// setInterval(function () {
+	//     $(document).data("tmp").displayMsg(30);
+	// }, 500);
 	return (true);
     } else {
 	return (false);
