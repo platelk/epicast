@@ -19,6 +19,8 @@ function resizeHeader() {
 	$('#logo').css('font-size', 0.9 * parseInt(h));
 	$('#connectionButton').css('font-size', 0.6 * parseInt(h));
 	$('#inscriptionButton').css('font-size', 0.6 * parseInt(h));
+	$('#disconnectButton').css('font-size', 0.6 * parseInt(h));
+	$('#homeButton').css('font-size', 0.6 * parseInt(h));
 	$('.Mosaique').css('font-size', 0.3 * parseInt(h));
 }
 
@@ -82,6 +84,7 @@ $("#disconnectButton").click(function () {
     $("#connectionLog").show();
     $("#inscriptionButton").show();
     $("#disconnectButton").hide();
+    $("#prevButton").hide();
     $("#homeButton").hide();
     $("#userInfo").html('');
     $("#userButton").hide();
@@ -182,7 +185,8 @@ function connectionUser(ret) {
 	$("#connectionLog").hide();
 	$("#inscriptionButton").hide();
 	$("#inscriptionPage").hide();
-	$("#userInfo").html("Bienvenue " + user.username + ".");
+	$("#prevButton").show();
+	$("#homeButton").html(user.username);
 	CreateMosaique(mosaique[0], user.data.folder);
 	$("#menu").show();
 	$("#disconnectButton").show();

@@ -173,21 +173,32 @@ li#SearchBar
     
 }
 
-li#disconnectButton
+#disconnectButton
 {
+    line-height: 150%;
     cursor: pointer;
     color:#F2F2F2;
     background-color: #04859D;
-    width : 19%;
+    width : 18%;
+
+}
+
+li#disconnectButton
+{
     display:none;
+}
+
+#homeButton
+{
+    line-height: 150%;
+    cursor: pointer;
+    color:#F2F2F2;
+    background-color: #04859D;
+    width : 18%;
 }
 
 li#homeButton
 {
-    cursor: pointer;
-    color:#F2F2F2;
-    background-color: #04859D;
-    width : 19%;
     display:none;
 }
 
@@ -354,8 +365,8 @@ li#homeButton
 #userInfo
 {
     position : absolute;
-    right : 15%;
-    top : 10%;
+    left : 15%;
+    top : 15%;
     color : #dddddd;
 }
 
@@ -375,13 +386,24 @@ li#homeButton
 
 #prevButton
 {
+    display:none;
+    cursor: pointer;
     color: #F2F2F2;
-    font-size: 140%;
     position : absolute;
-    height : 100%;
-    width : 30%;
-    top : 0%;
-    left : 64%;
-    background-color : #9D0404;
+    width : 5%;
+    top : 10%;
+    left : 7%;
+    height:3%;
+    background-color : #04859D;
+    -webkit-border-radius : 10px 0px 0px 10px;
+    -moz-border-radius : 10px 0px 0px 10px;
     border-style : none;
+}
+
+#prevButton p
+{
+    margin:0;
+    margin-left: 15%;
+    margin-top:5%;
+    padding:0;
 }
