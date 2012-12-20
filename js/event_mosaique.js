@@ -82,9 +82,9 @@ function setEvent() {
 	    var tchat = new Tchat(user, new Connect(), $(this).data("me").tchat_id, $(this).data("me").id);
 
 	    var i = tab.add_tabs(t);
-	    t.onglet.icon = "Video";
 	    t.tab.add_content($(this).data('me').displayContent());
 	    t.tab.add_content(tchat.getHtml())
+	    t.onglet.icon = $(this).data("me").name;
 	    tab.displayAll();
 	    tab.action['moins'].html.children('a').trigger('click');
 	    tchat.setPos("70%", "10%");
