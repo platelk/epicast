@@ -44,11 +44,7 @@ $(window).resize(function () {
 
 $('#connectionButton').click(function () {
     if (connection == false) {
-	connection = true;
 	$('#connection').show(200);
-    }
-    else {
-	hideConnection();
     }
 });
 
@@ -58,15 +54,16 @@ $('#connectionBar').keypress(function (e) {
 });
 
 function headerEvent() {
-    $('header').mouseleave(function () {
+    $('header,connection').mouseleave(function () {
 	if (connection == true) {
 	    idTime = setTimeout(hideConnection, 4000);
 	}
     });
-    $('header').mouseenter(function () {
+    $('header,connection').mouseenter(function () {
 	clearTimeout(idTime);
     });
 }
+
 function hideConnection() {
     $('#connection').hide(200, function () {
 	connection = false;
@@ -84,9 +81,10 @@ $("#disconnectButton").click(function () {
     $("#connection").show();
     $("#connectionLog").show();
     $("#inscriptionButton").show();
-    $("#userInfo").html('');
     $("#disconnectButton").hide();
     $("#homeButton").hide();
+    $("#userInfo").html('');
+    $("#userButton").hide();
     $(".Mosaique").remove();
     mosaique = new Array();
     mosaique.push(new Mosaique(undefined, 15, 10));
@@ -154,7 +152,6 @@ $('#SearchBarButton').click(function () {
     var conn = new Connect();
 
     var ret = conn.getUsrInfoByName($("#SearchBarInput").val());
-
     if (ret) {
 	goInFolder(ret.folders_id);
    } else {
@@ -187,6 +184,7 @@ function connectionUser(ret) {
 	$("#inscriptionPage").hide();
 	$("#userInfo").html("Bienvenue " + user.username + ".");
 	CreateMosaique(mosaique[0], user.data.folder);
+	$("#menu").show();
 	$("#disconnectButton").show();
 	$("#homeButton").show();
 	$('header').off();
