@@ -50,7 +50,7 @@
     height : 33px;
 }
 
-#addContainerSubmit
+.addSubmit
 {
     position : absolute;
     left : 5%;

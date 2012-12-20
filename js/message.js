@@ -7,7 +7,7 @@ function message_getMsg() {
     return (this.htmlWrapper);
 }
 
-function Message(usr, msg) {
+function Message(usr, msg, date) {
     /*
     **-----------------------------
     ** Attribut of Message Class
@@ -17,6 +17,7 @@ function Message(usr, msg) {
     this.htmlWrapper;
     this.msg;
     this.user;
+    this.date;
 
     /*
     **-----------------------------
@@ -31,7 +32,7 @@ function Message(usr, msg) {
     ** Execute part of Message Class
     */
 
-    this.init(usr, msg);
+    this.init(usr, msg, date);
 }
 
 
@@ -40,7 +41,7 @@ function Message(usr, msg) {
 ** Methode declaration of Message Class
 */
 
-function message_init(usr, msg) {
+function message_init(usr, msg, date) {
     if (typeof usr == "undefined") {
 	return (false);
     }
@@ -49,6 +50,7 @@ function message_init(usr, msg) {
     }
 
     this.classWrapper = "message";
+    this.date = date;
 
     this.htmlWrapper = $("<div />");
     this.htmlWrapper.append("<span class='usrMsg'>" + usr + "</span> : " + msg + "");

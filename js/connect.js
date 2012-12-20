@@ -11,7 +11,6 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
-		alert(data);
 	    	if (data.match(/error/gi)) {
 	    	    $(document).data("json", null);
 		    $(document).data("connError", $.parseJSON(data));
@@ -242,7 +241,6 @@ function Connect()
 		    $(document).data("json", null);
 		    return (false);
 		} else {
-	//	    alert(data);
 		    $(document).data("json", $.parseJSON(data));
 		    return (true);
 		}
@@ -445,6 +443,7 @@ function Connect()
 	    dataType : "text",
 	    async : false,
 	    success: function (data) {
+		alert(data);
 		if (data.match(/error/gi)) {
 		    $(document).data("json", null);
 		    return (false);

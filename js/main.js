@@ -78,6 +78,7 @@ $("#disconnectButton").click(function () {
     var conn = new Connect();
     conn.disconnect();
     user.disconnect();
+    tab.removeAllTabs();
     $("#connectionButton").show();
     $("#connection").show();
     $("#connectionLog").show();
@@ -131,6 +132,7 @@ $('#SearchBarButton').click(function () {
 	$(".Mosaique").remove();
 	mosaique = new Array();
 	var data = conn.get_folder(ret.folders_id);
+
 	mosaique.push(new Mosaique(undefined, 15, 10));
 	CreateMosaique(mosaique[0], data);
 	$("#video").append(mosaique[0].html);

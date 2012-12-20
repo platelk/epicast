@@ -118,7 +118,7 @@ function Stream(id, name, description, link, x, y, image) {
     this.init(id, name, description, link, x, y, image);
 }
 
-function Video(id, name, description, link, x, y, image) {
+function Video(id, name, description, link, x, y, image, tchat_id) {
 
     // Attribut definissant les class/id
     this.streamClass = 'videoClass';
@@ -128,6 +128,7 @@ function Video(id, name, description, link, x, y, image) {
     this.name = name;
     this.info = description;
     this.image = image;
+    this.tchat_id = tchat_id;
 
     // Heritage
     Container.call(this);     if ( typeof Video.initialized == 'undefined' ) {
@@ -222,12 +223,16 @@ function setGrillEvent() {
 	$("#addContainerMask").click(function () {
 	    $("#addContainer").hide("clip", 200);
 	});
-	$("#addContainerSubmit").click(function () {
+	$(".addSubmit").click(function () {
 	    var conn = new Connect();
-	    var ret = conn.add_video($("#addContainerName").val(), $("#addContainerDes").val(), $("#addContainerImg").val(), $("#addContainerLive").val(),$("#addContainerFil").val());
+	    var ret = conn.add_video($("#addVideoName").val(), $("#addVideoDes").val(), $("#addVideoImg").val(), $("#addVideoLive").val(),$("#addVideoFil").val());
+	    ret = conn.get_buffer_zone();
 	    if (ret != false) {
 		$("#addContainer").hide("clip", 200);
-		ret = conn.addVideoIn("folder", ret.buffer_zone[(ret.buffer_zone.length - 1)].id + "", user.folders_id + "");
+		for (i = 0; i < ret.buffer_zone.length; i++) {
+		    if (parseInt(ret.buffer_zone[i].user_id) == parseInt(user.id))
+			conn.addVideoIn("folder", ret.buffer_zone[i].id, user.folders_id, 0, 0, 0)
+		}
 		$("#homeButton").trigger('click');
 	    }
 	});
